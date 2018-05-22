@@ -1,5 +1,5 @@
 package king.helper.model;
-
+import king.helper.*;
 
 public abstract class Instruction
 {
@@ -58,8 +58,8 @@ public abstract class Instruction
 	{
 		// TODO: Implement this method
 		String str="type:"+type+"\n"+
-		           "size:"+size+
-				   "body:"+bytesToHex(body)+
+		           "size:"+size+"\n"+
+				   "body:"+bytesToHex(body)+"\n"+
 		           "description:"+description;
 		return str;
 	} 

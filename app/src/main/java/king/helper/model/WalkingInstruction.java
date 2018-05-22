@@ -41,30 +41,15 @@ public class WalkingInstruction extends Instruction
 	public void setUpAndDownCommand(byte command){
 		body[2]=command;
 	}
-	
 
 	public void setLeftAndRightCommand(byte command){
 		body[3]=command;
 	}
 	
-	public void setFloodLightEnable(boolean is){
-		byte b=body[4];
-		if(((b>>4)==0xF)&&(!is)){
-			body[4]&=0x0F;
-		}else if((b>>4==0x0)&&is){
-			body[4]|=0xF0;
-		}
+	public void setLightCommand(byte command){
+		body[4]=command;
 	}
-	
-	public void setAlarmLampEnable(boolean is){
-		byte b=body[4];
-		if(((b<<4)==0xF)&&(!is)){
-			body[4]&=0xF0;
-		}else if((b<<4==0x0)&&is){
-			body[4]|=0x0F;
-		}
-	}
-	
+
 	public void setVoiceCommand(byte command){
 		body[5]=command;
 	}
