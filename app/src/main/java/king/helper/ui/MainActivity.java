@@ -8,6 +8,7 @@ import android.widget.*;
 import king.helper.*;
 import android.view.View.*;
 import android.view.*;
+import king.helper.manager.*;
 
 public class MainActivity extends BasedActivity implements OnClickListener
 {
@@ -31,7 +32,6 @@ public class MainActivity extends BasedActivity implements OnClickListener
 		setting.setOnClickListener(this);
 		about.setOnClickListener(this);
     }
-
 	@Override
 	protected void onResume()
 	{
@@ -39,6 +39,22 @@ public class MainActivity extends BasedActivity implements OnClickListener
 		super.onResume();
 		//TestInstruction();
 	}
+	
+	@Override
+	protected void onPause()
+	{
+		// TODO: Implement this method
+		super.onPause();
+	}
+
+	
+	@Override
+	protected void onDestroy()
+	{
+		// TODO: Implement this method
+		super.onDestroy();
+	}
+	
 	
 	
 	@Override

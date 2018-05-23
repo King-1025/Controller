@@ -1,6 +1,5 @@
 package king.helper.manager;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -18,215 +17,326 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import king.helper.iface.OnConnectionListener;
-import king.helper.iface.TransmitController;
+import king.helper.iface.OnTransmissionListener;
 import king.helper.utils.Format;
-
+import java.io.*;
+import java.net.*;
 
 /**
  * Created by King on 2017/8/7.
  * 控制连接管理
  */
 
-public class ConnectionManager implements TransmitController {
-
+public class ConnectionManager
+{
     private Context context;
-    private Handler handler;
-    private HandlerThread handlerThread;
-    private Socket socket;
+	private String host;
+    private int port;
+	private HandlerThread handlerThread;
+	private Handler mhandler;
+	private Socket socket;
+	private InputStream inputStream;
     private OutputStream outputStream;
+	private boolean hasConnection=false;
+	private boolean isStopReceive=false;
+	private boolean isReconnection=false;
+	private boolean isReceiving=false;
+	private long RECONNECTION_DELAYED_TIME=10000;
+	private int SEND_BUFFER_SIZE=8;
+	private int RECEIVE_BUFFER_SIZE=5;
+	private int RECEIVED_INTERNAL_TIME=1000;
+	private OnConnectionListener onConnectionListener;
+    private OnTransmissionListener onTransmissionListener;
+	
+	private final static int ESTABLISH_CONNECTION=0x00;
+	/*
+	private final static int TRANSMISSION_DATA_WRITE=0x01;
+	private final static int TRANSMISSION_DATA_FLUSH=0x02;
+	*/
+	private final static int TRANSMISSION_DATA_RECEIVE=0x03;
+	private final static int RELEASE_CONNECTION=0x04;
+	private final static String TAG="ConnectionManager";
+    private final static String FLAG="ConnectionManager_HandlerThread";
 
-    private final int C0NNECTION_BUILD=1000;
-    private final int SEND_DATA=1001;
-    private boolean isConnected=false;
-    private boolean isSending=false;
-    private OnConnectionListener onConnectionListener;
-
-    private final String FLAG="ConnectionManager_HandlerThread";
-    private final String TAG="ConnectionManager";
-
-    private String host;
-    private String port;
-
-    public ConnectionManager(final Context context){
+    public ConnectionManager(Context context){
         this.context=context;
         handlerThread=new HandlerThread(FLAG);
         handlerThread.start();
-        handler=new Handler(handlerThread.getLooper()){
+        mhandler=new Handler(handlerThread.getLooper()){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 switch(msg.what){
-                    case C0NNECTION_BUILD:
-                        //判断是否初始化成功
-                        boolean is=initSocket();
-                        if(is){
-                            isConnected=true;
-                            Log.d(TAG,"handleMessage():连接建立成功！");
-                            Toast.makeText(context,"控制连接建立成功！", Toast.LENGTH_SHORT).show();
-                            if(onConnectionListener!=null){
-                                onConnectionListener.success();
-                            }
-                        }else{
-                            isConnected=false;
-                            Log.d(TAG,"handleMessage():连接建立失败！");
-                            Toast.makeText(context,"控制连接建立失败！", Toast.LENGTH_SHORT).show();
-                            if(onConnectionListener!=null){
-                                onConnectionListener.faild();
-                            }
-                        }
+                    case ESTABLISH_CONNECTION:
+						establish();
                         break;
-                    case SEND_DATA:
-                        if(outputStream!=null){
-                            try {
-                                byte data[]=(byte[])msg.obj;
-                                outputStream.write(data);
-                                if(isConnected&&isSending)
-                                {
-                                    outputStream.flush();
-                                    Log.d(TAG,"handleMessage():清除缓冲区");
-                                    //Toast.makeText(context,"数据发送:"+DataFormatTool.obtainString(data),Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        isSending=false;
-                        break;
+					/*case TRANSMISSION_DATA_WRITE:
+						write((byte[])msg.obj);
+						break;
+					case TRANSMISSION_DATA_FLUSH:
+						flush();
+						break;*/
+					case TRANSMISSION_DATA_RECEIVE:
+					    receive(RECEIVED_INTERNAL_TIME);
+						break;
+					case RELEASE_CONNECTION:
+						destroy();
+						break;
                 }
             }
         };
-
     }
+
+	public boolean isHasConnection()
+	{
+		return hasConnection;
+	}
+
+	public void setReceivedIntervalTime(int interval)
+	{
+		RECEIVED_INTERNAL_TIME = interval;
+	}
+
+	public int getReceivedIntervalTime()
+	{
+		return RECEIVED_INTERNAL_TIME;
+	}
+
+	public Socket getSocket()
+	{
+		return socket;
+	}
+
+	public InputStream getInputStream()
+	{
+		return inputStream;
+	}
+
+	public OutputStream getOutputStream()
+	{
+		return outputStream;
+	}
+	
     public ConnectionManager bulid(String host,String port){
         if(host==null||port==null){
             Toast.makeText(context,"目标无效！",Toast.LENGTH_SHORT).show();
         }else {
-            if(isConnected)
+            if(hasConnection)
             {
                 Log.d(TAG,"bulid():连接已经建立,请先关闭当前连接！");
             }else {
                 this.host=host;
-                this.port=port;
-                handler.sendEmptyMessage(C0NNECTION_BUILD);
-                Log.d(TAG,"bulid():发送建立连接消息");
+                this.port=Integer.valueOf(port);
+                mhandler.sendEmptyMessage(ESTABLISH_CONNECTION);
+                Log.d(TAG,"bulid():开始建立连接...");
             }
         }
         return this;
     }
-    public void disConnect(){
-        if(isConnected) {
-            pause();
-            closeSocket();
-        }
-    }
+	
+	public void startDataReceived(long delayTime){
+		if(!isReceiving){
+			if(inputStream!=null){
+				isStopReceive=false;
+				mhandler.sendEmptyMessageDelayed(TRANSMISSION_DATA_RECEIVE,delayTime);
+			}else{
+				Log.d(TAG,"startDataReceived()->inputStream:"+inputStream);
+			}
+		}else{
+			Log.d(TAG,"startDataReceived():正在接受数据中...");
+		}
+	}
+	
+	public void pauseDataReceived(){
+		isStopReceive=true;
+		mhandler.removeMessages(TRANSMISSION_DATA_RECEIVE);
+	}
+	
+	public void release(){
+		mhandler.sendEmptyMessage(RELEASE_CONNECTION);
+	}
+	
     public void setOnConnectionListener(OnConnectionListener onConnectionListener){
         this.onConnectionListener=onConnectionListener;
     }
-    @Override
-    public void send(byte[] data) {
-        sendDelayed(data,0);
-        Log.d(TAG,"send()"+ Format.obtainString(data));
+	
+	public void setOnTransmissionListener(OnTransmissionListener onTransmissionListener)
+	{
+		this.onTransmissionListener = onTransmissionListener;
+	}
+	
+	private void establish(){
+		if(onConnectionListener!=null){
+			onConnectionListener.onConnect();
+		}
+		socket=openSocket(host,port,SEND_BUFFER_SIZE,RECEIVE_BUFFER_SIZE);
+		if(socket!=null){
+			try
+			{
+				inputStream = socket.getInputStream();
+				outputStream = socket.getOutputStream();
+				if(onConnectionListener!=null){
+					onConnectionListener.onSuccess();
+				}
+				if(isReconnection){
+					startDataReceived(1000);
+					isReconnection=false;
+					Log.d(TAG,"重连成功！");
+					Toast.makeText(context.getApplicationContext(),"重连成功！", Toast.LENGTH_SHORT).show();
+				}else{
+					Log.d(TAG,"连接建立成功！");
+					Toast.makeText(context.getApplicationContext(),"连接成功！", Toast.LENGTH_SHORT).show();
+				}
+				hasConnection=true;
+			}
+			catch (IOException e)
+			{
+				if(onConnectionListener!=null){
+					onConnectionListener.onFaild("数据流获取失败!");
+				}
+				e.printStackTrace();
+			    closeSocket(socket);
+				mhandler.removeMessages(ESTABLISH_CONNECTION);
+				mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,2*RECONNECTION_DELAYED_TIME);
+				Log.d(TAG,"handleMessage():数据流获取失败,正在尝试...");
+				Toast.makeText(context.getApplicationContext(),"数据流获取失败,正在尝试...", Toast.LENGTH_SHORT).show();
+			}
+		}else{
+			if(onConnectionListener!=null){
+				onConnectionListener.onFaild("Socket获取失败!");}
+			hasConnection=false;
+			mhandler.removeMessages(ESTABLISH_CONNECTION);
+			mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,2*RECONNECTION_DELAYED_TIME);
+			Log.d(TAG,"handleMessage():Socket获取失败,正在尝试...");
+			Toast.makeText(context.getApplicationContext(),"Socket获取失败,正在尝试...", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	/*
+	private void flush(){
+		try{outputStream.flush();}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			reconnection();
+		}
+	}
+	
+	private void write(byte []data){
+		try{ outputStream.write(data);}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		    reconnection();
+		}
+	}
+	*/
+	
+    private void destroy(){
+		if(onConnectionListener!=null){
+			onConnectionListener.onClose();
+		}
+		pauseDataReceived();
+        closeStream();
+		closeSocket(socket);
+		if(handlerThread!=null){
+			handlerThread.quitSafely();
+			handlerThread=null;
+		}
+    }
+	
+	private void reconnection(){
+		if(onConnectionListener!=null){
+			onConnectionListener.onReconnect();
+		}
+		isReconnection=true;
+		pauseDataReceived();
+		closeStream();
+		mhandler.removeMessages(ESTABLISH_CONNECTION);
+		mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,RECONNECTION_DELAYED_TIME);
+	}
+	
+	private void closeStream(){
+		hasConnection=false;
+		if(inputStream!=null){
+			try{inputStream.close();}
+			catch (IOException e)
+			{e.printStackTrace();}
+			finally{inputStream=null;}
+		}
+		if(outputStream!=null){
+			try{outputStream.close();}
+			catch (IOException e)
+			{e.printStackTrace();}
+			finally{outputStream=null;}
+		}
+	}
+	
+	private void receive(long interval){
+		if(isStopReceive){
+			isReceiving=false;
+			return;
+		}
+		isReceiving=true;
+		byte []data=new byte[RECEIVE_BUFFER_SIZE];
+		try
+		{
+			int count=inputStream.read(data);
+			if (count>0)
+			{
+				if(onTransmissionListener!=null){
+					onTransmissionListener.receive(data);
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		    reconnection();
+		}
+		if(!isStopReceive){
+			mhandler.sendEmptyMessageDelayed(TRANSMISSION_DATA_RECEIVE,interval);
+		}else{
+			mhandler.removeMessages(TRANSMISSION_DATA_RECEIVE);
+			isReceiving=false;
+		}
+	}
+	
+	public Socket openSocket(String host,int port,int sendBufferSize,int receiveBufferSize){
+		Socket tempSocket=null;
+        if(host!=null&&port>=0&&port<=65535){
+			//获取一个Socket对象，建立网络连接。可以尝试调整Socket参数，以优化连接。
+			try {
+				tempSocket=new Socket(host,port);
+				tempSocket.setSoTimeout(10000);
+				tempSocket.setSoLinger(true,30);
+				tempSocket.setTcpNoDelay(true);
+				tempSocket.setSendBufferSize(sendBufferSize);
+				tempSocket.setReceiveBufferSize(receiveBufferSize);
+				tempSocket.setKeepAlive(true);
+			} catch (SocketException e) {
+				e.printStackTrace();
+				tempSocket=null;
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+				tempSocket=null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				tempSocket=null;
+			}
+		}
+        return tempSocket;
     }
 
-    @Override
-    public void sendDelayed(byte[] data, long time) {
-        if(isConnected&&!isSending&&data!=null&&handler!=null)
-        {
-            isSending=true;
-            if(time<0||time>30000)
-            {
-               time=0;
-            }
-            if(handler.hasMessages(SEND_DATA))
-            {
-                handler.removeMessages(SEND_DATA);
-            }
-            Message msg=handler.obtainMessage();
-            msg.what=SEND_DATA;
-            msg.obj=data;
-            handler.sendMessageDelayed(msg,time);
-            Log.d(TAG,"sendDelayed():发送数据包消息:time:"+time);
-        }
-    }
-
-    public void pause(){
-        isSending=false;
-        byte data[];
-        if(PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("override_control_mode", false)){
-            data= Format.obtainBytes(PreferenceManager.getDefaultSharedPreferences(context).getString("control_stop",null));
-        }else {
-            data = new byte[8];
-            data[0] = (byte) 0x55;
-            data[1] = (byte) 0x00;
-            data[2] = (byte) 0xff;
-            data[3] = (byte) 0x00;
-            data[4] = (byte) 0xff;
-            data[5] = (byte) 0x00;
-            data[6] = (byte) 0x00;
-            data[7] = (byte) 0xaa;
-        }
-        send(data);
-        Log.d(TAG,"执行pause()");
-    }
-
-    public void destroy(){
-        pause();
-        closeSocket();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            handlerThread.quitSafely();
-        }
-    }
-    //初始化套接字
-    private boolean initSocket(){
-//        SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(context);
-//        String ip=sp.getString("ip", "none");
-//        int port= Integer.valueOf(sp.getString("port","-1"));
-        Log.d(TAG,"initSocket():初始化Socket：host:"+host+" port:"+port);
-        if(host==null||port==null)return false;
-        //获取一个Socket对象，建立网络连接。
-        //可以尝试调整Socket参数，以优化连接。
-        try {
-            socket=new Socket(host,Integer.parseInt(port));
-            //socket.setSoTimeout(10000);
-            //socket.setSoLinger(true,30);
-            socket.setTcpNoDelay(true);
-            //socket.setSendBufferSize(8);
-            socket.setKeepAlive(true);
-		
-            outputStream=socket.getOutputStream();
-            return true;
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public void forceToClose(){
+    public void closeSocket(Socket socket){
         try {
             if(socket!=null){
                 socket.close();
-            }
-            if(outputStream!=null){
-                outputStream.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
             socket=null;
-            outputStream=null;
         }
-        isConnected=false;
-    }
-    private void closeSocket(){
-        if(isConnected)
-        {
-          forceToClose();
-        }
-        isConnected=false;
     }
 }

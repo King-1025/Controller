@@ -6,11 +6,139 @@
 	android:orientation="vertical"
 	android:gravity="center">
 
-	<Button
+	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:text="控制页面-&gt;返回"
-		android:onClick="skipToActivity(MainActivity.class,false)"/>
+		android:orientation="vertical"
+		android:visibility="visible">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="电量:0"
+			android:id="@+id/activity_control_power"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="控制页面-&gt;返回"
+			android:onClick="skipToActivity(MainActivity.class,false)"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="测试短效指令"
+			android:id="@+id/activity_main_test_0"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="测试长效指令"
+			android:id="@+id/activity_main_test_1"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="30dp"
+		android:orientation="horizontal"
+		android:gravity="center"
+		android:visibility="gone">
+
+	</LinearLayout>
+
+	<FrameLayout
+		android:id="@+id/acrivity_control_container"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:visibility="gone">
+
+		<RelativeLayout
+			android:id="@+id/activity_control_layer0"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<SurfaceView
+				android:id="@+id/activity_control_video"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:visibility="visible"/>
+
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/activity_control_layer1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<TextView
+				android:text="信息"
+				android:id="@+id/data_info"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="3dp"
+				android:layout_marginTop="1dp"
+				android:background="@android:color/transparent"/>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentLeft="true">
+
+				<ImageView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_delete"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentRight="true">
+
+				<ImageView
+					android:id="@+id/center"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_delete"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentRight="true">
+
+				<ImageView
+					android:id="@+id/center"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_delete"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:layout_alignParentBottom="true">
+
+				<ImageView
+					android:id="@+id/center"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:src="@android:drawable/ic_delete"/>
+
+			</RelativeLayout>
+
+		</RelativeLayout>
+
+	</FrameLayout>
 
 </LinearLayout>
 

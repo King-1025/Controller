@@ -5,8 +5,11 @@ import android.content.*;
 import king.helper.service.*;
 import android.util.*;
 import android.widget.*;
+import king.helper.model.*;
+import android.view.View.*;
+import android.view.*;
 
-public class ControlActivity extends BasedActivity
+public class ControlActivity extends BasedActivity implements OnClickListener
 {
 	private ServiceConnection serviceConnection;
 	private Handler serviceHandler;
@@ -15,6 +18,9 @@ public class ControlActivity extends BasedActivity
 	private final static String TAG="ControlActivity";
 	public final static int CONTROL_STATUS_OK=0x00;
 
+	private Button test0;
+	private Button test1;
+	private TextView power;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -22,6 +28,14 @@ public class ControlActivity extends BasedActivity
 		IS_PROHIBIT_BACK_BUTTON=true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_control);
+		
+		test0=(Button) findViewById(R.id.activity_main_test_0);
+		//test0.setOnClickListener(this);
+		
+		test1=(Button) findViewById(R.id.activity_main_test_1);
+		//test1.setOnClickListener(this);
+		
+		power=(TextView) findViewById(R.id.activity_control_power);
 		
 		serviceConnection = new ServiceConnection(){
 
@@ -36,7 +50,6 @@ public class ControlActivity extends BasedActivity
 					msg.obj=mHandler;
 				    new Messenger(p2).send(msg);
 					isBinded=true;
-				    
 				}
 				catch (RemoteException e)
 				{
@@ -53,7 +66,6 @@ public class ControlActivity extends BasedActivity
 	            isBinded=false;
 			}
 			
-			
 		};
 		
 		mHandler=new Handler(this.getMainLooper()){
@@ -66,8 +78,13 @@ public class ControlActivity extends BasedActivity
 				switch(msg.what){
 					case CONTROL_STATUS_OK:
 						serviceHandler=(Handler) msg.obj;
-						Log.i(TAG,"控制状态良好！");
-						Toast.makeText(self.getApplicationContext(),"初始化成功",Toast.LENGTH_SHORT).show();
+						Log.d(TAG,"activityHandler is ok！");
+						break;
+					case CommunicationService.RESPONSE_POWER:
+						power.setText("电量:"+msg.arg1);
+						serviceHandler.sendEmptyMessageDelayed(CommunicationService.REQUEST_POWER,1000);
+						break;
+					case CommunicationService.RESPONSE_INSTRUCTION_STATUS:
 						break;
 				}
 				
@@ -96,9 +113,10 @@ public class ControlActivity extends BasedActivity
 	{
 		// TODO: Implement this method
 		super.onStop();
+		mHandler.removeMessages(CommunicationService.RESPONSE_POWER);
 		unBind();
 	}
-
+	
 	@Override
 	protected void onDestroy()
 	{
@@ -106,6 +124,20 @@ public class ControlActivity extends BasedActivity
 		super.onDestroy();
 	}
 
+	@Override
+	public void onClick(View p1)
+	{
+		// TODO: Implement this method
+		int id=p1.getId();
+		switch(id){
+			case R.id.activity_main_test_0:
+				test(Type.INSTRUCTION_WALKING_DIRECTION,"短效命令");
+				break;
+			case R.id.activity_main_test_1:
+				test(Type.INSTRUCTION_WALKING,"长效命令");
+				break;
+		}
+	}
 	
 	private void bind(Class<?> service){
 		if(service!=null){
@@ -121,5 +153,18 @@ public class ControlActivity extends BasedActivity
 			serviceConnection=null;
 			isBinded=false;
 		}
+	}
+	
+	
+	public void test(int type,String des){
+		WalkingInstruction instruction=new WalkingInstruction(type,des);
+		if(type>Type.INSTRUCTION_WALKING){
+			instruction.setVoiceCommand((byte)0xFF);
+			instruction.setLEDCommand((byte)0xFF);
+		}
+		Message msg=serviceHandler.obtainMessage();
+		msg.what=CommunicationService.REQUEST_SEND_INSTRUCTION;
+		msg.obj=instruction;
+		serviceHandler.sendMessage(msg);
 	}
 }

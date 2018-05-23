@@ -6,6 +6,9 @@ package king.helper.iface;
  */
 
 public interface OnConnectionListener {
-      void  success();
-      void  faild();
+	  void  onConnect();
+	  void  onReconnect();
+	  void  onClose();
+	  void  onSuccess();
+	  void  onFaild(String error);
 }

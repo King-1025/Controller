@@ -14,13 +14,6 @@ public class WalkingInstruction extends Instruction
 	byte5: 语音控制
 	byte6: LED显示屏节目播放
 	byte7：0xaa(数据包尾)  
-	
-	2.机器人返回数据包格式：字节个数（5 byte)
-	byte0：0x55(包头)
-	byte1: 0x01(地址位)
-	byte2: 0-100(电量)
-	byte3: xx(保留字节)        
-	byte4：0xaa(数据包尾)
 	*/
 	private final static int BODY_SIZE=8;
 	

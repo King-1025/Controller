@@ -9,14 +9,35 @@ package king.helper;
 
 public final class R {
     public static final class attr {
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int bgInnerDrawable=0x7f010000;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int bgOuterDrawable=0x7f010001;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int activity_main_about=0x7f060002;
-        public static final int activity_main_control=0x7f060000;
-        public static final int activity_main_setting=0x7f060001;
+        public static final int acrivity_control_container=0x7f060003;
+        public static final int activity_control_layer0=0x7f060004;
+        public static final int activity_control_layer1=0x7f060006;
+        public static final int activity_control_power=0x7f060000;
+        public static final int activity_control_video=0x7f060005;
+        public static final int activity_main_about=0x7f06000b;
+        public static final int activity_main_control=0x7f060009;
+        public static final int activity_main_setting=0x7f06000a;
+        public static final int activity_main_test_0=0x7f060001;
+        public static final int activity_main_test_1=0x7f060002;
+        public static final int center=0x7f060008;
+        public static final int data_info=0x7f060007;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -32,4 +53,45 @@ public final class R {
     public static final class style {
         public static final int AppTheme=0x7f050000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a CircularRod.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #CircularRod_bgInnerDrawable king.helper:bgInnerDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #CircularRod_bgOuterDrawable king.helper:bgOuterDrawable}</code></td><td></td></tr>
+           </table>
+           @see #CircularRod_bgInnerDrawable
+           @see #CircularRod_bgOuterDrawable
+         */
+        public static final int[] CircularRod = {
+            0x7f010000, 0x7f010001
+        };
+        /**
+          <p>This symbol is the offset where the {@link king.helper.R.attr#bgInnerDrawable}
+          attribute's value can be found in the {@link #CircularRod} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name king.helper:bgInnerDrawable
+        */
+        public static final int CircularRod_bgInnerDrawable = 0;
+        /**
+          <p>This symbol is the offset where the {@link king.helper.R.attr#bgOuterDrawable}
+          attribute's value can be found in the {@link #CircularRod} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name king.helper:bgOuterDrawable
+        */
+        public static final int CircularRod_bgOuterDrawable = 1;
+    };
 }
