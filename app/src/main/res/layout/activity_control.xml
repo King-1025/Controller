@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
@@ -10,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="vertical"
-		android:visibility="visible">
+		android:visibility="gone">
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
 		android:layout_height="30dp"
 		android:orientation="horizontal"
 		android:gravity="center"
-		android:visibility="gone">
+		android:visibility="visible">
 
 	</LinearLayout>
 
@@ -51,7 +52,7 @@
 		android:id="@+id/acrivity_control_container"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:visibility="gone">
+		android:visibility="visible">
 
 		<RelativeLayout
 			android:id="@+id/activity_control_layer0"
@@ -83,58 +84,71 @@
 
 			<RelativeLayout
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_alignParentBottom="true"
-				android:layout_alignParentLeft="true">
+				android:layout_alignParentRight="true"
+				android:id="@+id/activitycontrolRelativeLayout1">
 
-				<ImageView
+				<Button
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
-					android:src="@android:drawable/ic_delete"/>
+					android:text="Button"/>
 
 			</RelativeLayout>
 
-			<RelativeLayout
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_alignParentBottom="true"
-				android:layout_alignParentRight="true">
-
-				<ImageView
-					android:id="@+id/center"
-					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
-					android:src="@android:drawable/ic_delete"/>
-
-			</RelativeLayout>
-
-			<RelativeLayout
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_alignParentTop="true"
-				android:layout_alignParentRight="true">
-
-				<ImageView
-					android:id="@+id/center"
-					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
-					android:src="@android:drawable/ic_delete"/>
-
-			</RelativeLayout>
-
-			<RelativeLayout
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_centerHorizontal="true"
+			<LinearLayout
+				android:layout_height="250dp"
+				android:layout_width="match_parent"
+				android:orientation="horizontal"
 				android:layout_alignParentBottom="true">
 
-				<ImageView
-					android:id="@+id/center"
-					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
-					android:src="@android:drawable/ic_delete"/>
+				<king.helper.view.FloatingLayout
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:background="#37E5D4"
+					android:layout_weight="1.0">
 
-			</RelativeLayout>
+					<king.helper.view.CircularRod
+						android:layout_width="120dp"
+						android:layout_height="120dp"
+						app:bgInnerDrawable="@drawable/sel_inner_circle"
+						app:bgOuterDrawable="@drawable/sel_outer_circle"
+						android:layout_alignParentBottom="true"
+						android:layout_marginLeft="45dp"
+						android:layout_marginBottom="50dp"/>
+
+				</king.helper.view.FloatingLayout>
+
+				<RelativeLayout
+					android:layout_height="match_parent"
+					android:layout_width="150dp"
+					android:background="#EB4F77"
+					android:gravity="bottom|center">
+
+					<ImageButton
+						android:id="@+id/center"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:src="@android:drawable/ic_delete"/>
+
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:layout_weight="1.0"
+					android:background="#41B5F7">
+
+					<king.helper.view.CircularRod
+						android:layout_width="135dp"
+						android:layout_height="135dp"
+						app:bgInnerDrawable="@drawable/sel_inner_circle"
+						app:bgOuterDrawable="@drawable/sel_outer_circle"
+						android:layout_centerInParent="true"/>
+
+				</RelativeLayout>
+
+			</LinearLayout>
 
 		</RelativeLayout>
 

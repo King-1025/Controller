@@ -8,19 +8,23 @@ import android.widget.*;
 import king.helper.model.*;
 import android.view.View.*;
 import android.view.*;
+import king.helper.manager.*;
+import king.helper.iface.*;
 
-public class ControlActivity extends BasedActivity implements OnClickListener
+public class ControlActivity extends BasedActivity
 {
 	private ServiceConnection serviceConnection;
 	private Handler serviceHandler;
 	private Handler mHandler;
 	private boolean isBinded=false;
-	private final static String TAG="ControlActivity";
-	public final static int CONTROL_STATUS_OK=0x00;
-
+	
+	private InstructionMaker instructionMaker;
 	private Button test0;
 	private Button test1;
 	private TextView power;
+
+	public final static int CONTROL_STATUS_OK=0x00;
+	private final static String TAG="ControlActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -28,12 +32,26 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		IS_PROHIBIT_BACK_BUTTON=true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_control);
+
+		instructionMaker=new InstructionMaker(this);
+		instructionMaker.setOnInstructionMakeListener(new OnInstructionMakeListener(){
+
+				@Override
+				public void onInstructionMade(Instruction instruction)
+				{
+					// TODO: Implement this method
+					Message msg=serviceHandler.obtainMessage();
+					msg.what=CommunicationService.REQUEST_SEND_INSTRUCTION;
+					msg.obj=instruction;
+					serviceHandler.sendMessage(msg);
+				}
+			});
 		
 		test0=(Button) findViewById(R.id.activity_main_test_0);
-		//test0.setOnClickListener(this);
-		
+		test0.setOnClickListener(instructionMaker);
+
 		test1=(Button) findViewById(R.id.activity_main_test_1);
-		//test1.setOnClickListener(this);
+		test1.setOnClickListener(instructionMaker);
 		
 		power=(TextView) findViewById(R.id.activity_control_power);
 		
@@ -123,23 +141,9 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		// TODO: Implement this method
 		super.onDestroy();
 	}
-
-	@Override
-	public void onClick(View p1)
-	{
-		// TODO: Implement this method
-		int id=p1.getId();
-		switch(id){
-			case R.id.activity_main_test_0:
-				test(Type.INSTRUCTION_WALKING_DIRECTION,"短效命令");
-				break;
-			case R.id.activity_main_test_1:
-				test(Type.INSTRUCTION_WALKING,"长效命令");
-				break;
-		}
-	}
 	
 	private void bind(Class<?> service){
+		if(1==1)return;
 		if(service!=null){
 			Intent intent=new Intent();
 			intent.setClass(this,service);
@@ -148,6 +152,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	}
 	
 	private void unBind(){
+		if(1==1)return;
 		if(serviceConnection!=null){
 			unbindService(serviceConnection);
 			serviceConnection=null;
@@ -155,16 +160,4 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		}
 	}
 	
-	
-	public void test(int type,String des){
-		WalkingInstruction instruction=new WalkingInstruction(type,des);
-		if(type>Type.INSTRUCTION_WALKING){
-			instruction.setVoiceCommand((byte)0xFF);
-			instruction.setLEDCommand((byte)0xFF);
-		}
-		Message msg=serviceHandler.obtainMessage();
-		msg.what=CommunicationService.REQUEST_SEND_INSTRUCTION;
-		msg.obj=instruction;
-		serviceHandler.sendMessage(msg);
-	}
 }

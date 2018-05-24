@@ -21,9 +21,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
         public static final int bgOuterDrawable=0x7f010001;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be an integer value, such as "<code>100</code>".
+         */
+        public static final int defaultFloatingX=0x7f010002;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be an integer value, such as "<code>100</code>".
+         */
+        public static final int defaultFloatingY=0x7f010003;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int sel_inner_circle=0x7f020001;
+        public static final int sel_outer_circle=0x7f020002;
     }
     public static final class id {
         public static final int acrivity_control_container=0x7f060003;
@@ -31,12 +43,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_control_layer1=0x7f060006;
         public static final int activity_control_power=0x7f060000;
         public static final int activity_control_video=0x7f060005;
-        public static final int activity_main_about=0x7f06000b;
-        public static final int activity_main_control=0x7f060009;
-        public static final int activity_main_setting=0x7f06000a;
+        public static final int activity_main_about=0x7f06000c;
+        public static final int activity_main_control=0x7f06000a;
+        public static final int activity_main_setting=0x7f06000b;
         public static final int activity_main_test_0=0x7f060001;
         public static final int activity_main_test_1=0x7f060002;
-        public static final int center=0x7f060008;
+        public static final int activitycontrolRelativeLayout1=0x7f060008;
+        public static final int center=0x7f060009;
         public static final int data_info=0x7f060007;
     }
     public static final class layout {
@@ -93,5 +106,42 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name king.helper:bgOuterDrawable
         */
         public static final int CircularRod_bgOuterDrawable = 1;
+        /** Attributes that can be used with a FloatingLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #FloatingLayout_defaultFloatingX king.helper:defaultFloatingX}</code></td><td></td></tr>
+           <tr><td><code>{@link #FloatingLayout_defaultFloatingY king.helper:defaultFloatingY}</code></td><td></td></tr>
+           </table>
+           @see #FloatingLayout_defaultFloatingX
+           @see #FloatingLayout_defaultFloatingY
+         */
+        public static final int[] FloatingLayout = {
+            0x7f010002, 0x7f010003
+        };
+        /**
+          <p>This symbol is the offset where the {@link king.helper.R.attr#defaultFloatingX}
+          attribute's value can be found in the {@link #FloatingLayout} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be an integer value, such as "<code>100</code>".
+          @attr name king.helper:defaultFloatingX
+        */
+        public static final int FloatingLayout_defaultFloatingX = 0;
+        /**
+          <p>This symbol is the offset where the {@link king.helper.R.attr#defaultFloatingY}
+          attribute's value can be found in the {@link #FloatingLayout} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be an integer value, such as "<code>100</code>".
+          @attr name king.helper:defaultFloatingY
+        */
+        public static final int FloatingLayout_defaultFloatingY = 1;
     };
 }
