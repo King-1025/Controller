@@ -6,12 +6,12 @@
             <gradient
                 android:type="sweep"
                 android:gradientRadius="50%"
-                android:startColor="#FFFF00"
-                android:endColor="#00FFFF"
-                android:centerColor="#FF00FF">
+                android:startColor="#3FFFFF1E"
+                android:endColor="#3F1EFFFF"
+                android:centerColor="#3FFF1EFF">
             </gradient>
             <stroke
-                android:color="#000000"
+                android:color="@color/colorPrimaryDark"
                 android:width="3dp">
             </stroke>
         </shape>

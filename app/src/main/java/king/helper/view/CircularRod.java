@@ -141,7 +141,7 @@ public class CircularRod extends View {
 
     private void onTouch(double w, double z, double d){
 		if(onCircularRodTouchListener!=null){
-			onCircularRodTouchListener.onTouch(this,w,z,d);
+			onCircularRodTouchListener.onCircularRodTouch(this,w,z,d);
 		}
       }
 	  

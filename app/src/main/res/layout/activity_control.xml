@@ -7,46 +7,86 @@
 	android:orientation="vertical"
 	android:gravity="center">
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:orientation="vertical"
-		android:visibility="gone">
-
-		<TextView
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="电量:0"
-			android:id="@+id/activity_control_power"/>
-
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="控制页面-&gt;返回"
-			android:onClick="skipToActivity(MainActivity.class,false)"/>
-
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="测试短效指令"
-			android:id="@+id/activity_main_test_0"/>
-
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="测试长效指令"
-			android:id="@+id/activity_main_test_1"/>
-
-	</LinearLayout>
-
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="30dp"
+		android:layout_height="35dp"
 		android:orientation="horizontal"
-		android:gravity="center"
-		android:visibility="visible">
+		android:visibility="visible"
+		android:padding="1dp"
+		android:gravity="center_vertical"
+		android:background="@color/colorItemBackgroundNormal">
 
-	</LinearLayout>
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"/>
+
+			<TextView
+				android:text="电量显示"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@android:color/transparent"
+				android:id="@+id/activitycontrolTextViewPower"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:layout_centerHorizontal="true">
+
+			<TextView
+				android:text="标题"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@android:color/transparent"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<Button
+				android:layout_height="30dp"
+				android:layout_width="30dp"
+				android:background="@drawable/circle_button_seletor"
+				android:text="隐藏"
+				android:padding="2dp"
+				android:textSize="10sp"
+				android:id="@+id/activitycontrolButtonVisibility"/>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_height="30dp"
+				android:layout_width="30dp"
+				android:background="@drawable/circle_button_seletor"
+				android:text="离开"
+				android:padding="2dp"
+				android:textSize="10sp"
+				android:id="@+id/activitycontrolButtonExit"/>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
 
 	<FrameLayout
 		android:id="@+id/acrivity_control_container"
@@ -64,7 +104,8 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_centerInParent="true"
-				android:visibility="visible"/>
+				android:visibility="visible"
+				android:background="#5EFFFFFF"/>
 
 		</RelativeLayout>
 
@@ -73,78 +114,95 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-			<TextView
-				android:text="信息"
-				android:id="@+id/data_info"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="3dp"
-				android:layout_marginTop="1dp"
-				android:background="@android:color/transparent"/>
-
-			<RelativeLayout
+			<LinearLayout
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:layout_alignParentBottom="true"
-				android:layout_alignParentRight="true"
-				android:id="@+id/activitycontrolRelativeLayout1">
+				android:orientation="horizontal">
 
-				<Button
-					android:layout_height="wrap_content"
+				<TextView
+					android:text="信息0"
 					android:layout_width="wrap_content"
-					android:text="Button"/>
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="3dp"
+					android:textColor="#EB2A38"
+					android:id="@+id/activitycontrolTextViewShow0"/>
 
-			</RelativeLayout>
+			</LinearLayout>
 
 			<LinearLayout
-				android:layout_height="250dp"
+				android:layout_height="205dp"
 				android:layout_width="match_parent"
 				android:orientation="horizontal"
 				android:layout_alignParentBottom="true">
 
-				<king.helper.view.FloatingLayout
+				<RelativeLayout
 					android:layout_height="match_parent"
 					android:layout_width="match_parent"
-					android:background="#37E5D4"
 					android:layout_weight="1.0">
 
-					<king.helper.view.CircularRod
-						android:layout_width="120dp"
-						android:layout_height="120dp"
-						app:bgInnerDrawable="@drawable/sel_inner_circle"
-						app:bgOuterDrawable="@drawable/sel_outer_circle"
-						android:layout_alignParentBottom="true"
-						android:layout_marginLeft="45dp"
-						android:layout_marginBottom="50dp"/>
+					<include
+						layout="@layout/walking_direction"
+						android:layout_height="match_parent"
+						android:layout_width="match_parent"
+						android:id="@+id/activitycontrolinclude1"/>
 
-				</king.helper.view.FloatingLayout>
+				</RelativeLayout>
 
 				<RelativeLayout
 					android:layout_height="match_parent"
-					android:layout_width="150dp"
-					android:background="#EB4F77"
-					android:gravity="bottom|center">
+					android:layout_width="210dp">
 
-					<ImageButton
-						android:id="@+id/center"
+					<include
+						layout="@layout/bottom_control"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:src="@android:drawable/ic_delete"/>
+						android:layout_width="match_parent"
+						android:layout_alignParentBottom="true"
+						android:id="@+id/activitycontrolinclude2"/>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:layout_above="@id/activitycontrolinclude2"
+						android:gravity="center"
+						android:layout_marginBottom="20dp">
+
+						<TextView
+							android:text="信息1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="3dp"
+							android:textColor="@color/colorPrimaryDark"
+							android:id="@+id/activitycontrolTextViewShow1"/>
+
+					</LinearLayout>
 
 				</RelativeLayout>
 
 				<RelativeLayout
 					android:layout_height="match_parent"
 					android:layout_width="match_parent"
-					android:layout_weight="1.0"
-					android:background="#41B5F7">
+					android:layout_weight="1.0">
 
-					<king.helper.view.CircularRod
-						android:layout_width="135dp"
-						android:layout_height="135dp"
-						app:bgInnerDrawable="@drawable/sel_inner_circle"
-						app:bgOuterDrawable="@drawable/sel_outer_circle"
-						android:layout_centerInParent="true"/>
+					<FrameLayout
+						android:layout_height="match_parent"
+						android:layout_width="match_parent"
+						android:id="@+id/activitycontrolFrameLayout1">
+
+						<include
+							layout="@layout/camera_direction"
+							android:layout_height="match_parent"
+							android:layout_width="match_parent"
+							android:id="@+id/activitycontrolinclude3"/>
+
+						<include
+							layout="@layout/camera_control"
+							android:layout_height="match_parent"
+							android:layout_width="match_parent"
+							android:id="@+id/activitycontrolinclude4"
+							android:visibility="invisible"/>
+
+					</FrameLayout>
 
 				</RelativeLayout>
 

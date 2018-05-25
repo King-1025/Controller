@@ -23,11 +23,11 @@ public class Type
 	//方向
 	public final static int INSTRUCTION_WALKING_DIRECTION=0x101;
 	//灯
-	public final static int INSTRUCTION_WALKING_LIGHT=0x101;
+	public final static int INSTRUCTION_WALKING_LIGHT=0x102;
 	//语音
-	public final static int INSTRUCTION_WALKING_VOICE=0x102;
-	//LED显示器
-	public final static int INSTRUCTION_WALKING_LED_SCREEN=0x101;
-	
-	public final static int INSTRUCTION_WALKING_FUSION=0x101;
+	public final static int INSTRUCTION_WALKING_VOICE=0x103;
+	//LED字幕
+	public final static int INSTRUCTION_WALKING_LED_WORD=0x104;
+    //混合
+	public final static int INSTRUCTION_WALKING_FUSION=0x105;
 }

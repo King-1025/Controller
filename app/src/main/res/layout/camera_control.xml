@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TableLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="聚近"
+				android:id="@+id/cameracontrolButtonNear"/>
+
+			<View
+				android:layout_width="35dp"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="聚远"
+				android:id="@+id/cameracontrolButtonFar"/>
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:background="@drawable/circle_button_seletor"
+				android:text="切换"
+				android:id="@+id/cameracontrolButtonSwitch"/>
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="倍大"
+				android:id="@+id/cameracontrolButtonLarge"/>
+
+			<View
+				android:layout_width="35dp"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="倍小"
+				android:id="@+id/cameracontrolButtonSmall"/>
+
+		</TableRow>
+
+	</TableLayout>
+
+</LinearLayout>
+

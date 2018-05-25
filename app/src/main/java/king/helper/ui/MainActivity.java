@@ -90,7 +90,7 @@ public class MainActivity extends BasedActivity implements OnClickListener
 		wi.setUpAndDownCommand((byte)0);
 		wi.setLightCommand((byte)0xFF);
 		wi.setVoiceCommand((byte)29);
-		wi.setLEDCommand((byte)29);
+		wi.setLEDWordCommand((byte)29);
 		show.setText(wi.toString());
 		Log.i(TAG,cpi.toString());
 	}

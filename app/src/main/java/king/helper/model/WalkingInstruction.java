@@ -17,6 +17,8 @@ public class WalkingInstruction extends Instruction
 	*/
 	private final static int BODY_SIZE=8;
 	
+	private static WalkingInstruction walkingInstruction;
+	
 	public WalkingInstruction(int type,String description){
 		super(type,BODY_SIZE,description);
 	}
@@ -47,8 +49,17 @@ public class WalkingInstruction extends Instruction
 		body[5]=command;
 	}
 	
-	public void setLEDCommand(byte command){
+	public void setLEDWordCommand(byte command){
 		body[6]=command;
 	}
 	
+	public static WalkingInstruction create(int type,byte upAndownCommand,byte leftAndRightCommand,byte lightCommand,byte voiceCommand,byte LEDWordCommand,String description){
+		walkingInstruction=new WalkingInstruction(type,description);
+		walkingInstruction.setUpAndDownCommand(upAndownCommand);
+		walkingInstruction.setLeftAndRightCommand(leftAndRightCommand);
+		walkingInstruction.setLightCommand(lightCommand);
+		walkingInstruction.setVoiceCommand(voiceCommand);
+		walkingInstruction.setLEDWordCommand(LEDWordCommand);
+		return walkingInstruction;
+	}
 }   

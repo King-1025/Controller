@@ -3,5 +3,5 @@ import android.view.*;
 
 public interface OnCircularRodTouchListener
 {
-	void onTouch(View v,double polarAngle,double polarDiameter,double maxPolarDiameter);
+	void onCircularRodTouch(View v,double polarAngle,double polarDiameter,double maxPolarDiameter);
 }

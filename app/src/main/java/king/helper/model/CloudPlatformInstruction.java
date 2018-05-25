@@ -22,6 +22,8 @@ public class CloudPlatformInstruction extends Instruction
 
 	private final static int BODY_SIZE=7;
 	
+	private static CloudPlatformInstruction cloudPlatformInstruction;
+	
     public CloudPlatformInstruction (int type,String description){
 	   super(type,BODY_SIZE,description);
    }
@@ -57,5 +59,16 @@ public class CloudPlatformInstruction extends Instruction
 			sum+=body[i];
 		}
 		body[6]=(byte)(sum%0x100);
+	}
+	
+	
+	public static CloudPlatformInstruction create(int type,byte command1,byte command2,byte data1,byte data2,String description){
+	    cloudPlatformInstruction=new CloudPlatformInstruction(type,description);
+		cloudPlatformInstruction.setFirstCommand(command1);
+		cloudPlatformInstruction.setSecondCommand(command2);
+		cloudPlatformInstruction.setFirstData(data1);
+		cloudPlatformInstruction.setSecondData(data2);
+		cloudPlatformInstruction.updateCheckSum();
+		return cloudPlatformInstruction;
 	}
 }

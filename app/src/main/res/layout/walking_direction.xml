@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<king.helper.view.FloatingLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
+
+		<king.helper.view.CircularRod
+			android:layout_width="120dp"
+			android:layout_height="120dp"
+			app:bgInnerDrawable="@drawable/sel_inner_circle"
+			app:bgOuterDrawable="@drawable/sel_outer_circle"
+			android:layout_alignParentBottom="true"
+			android:layout_marginLeft="45dp"
+			android:layout_marginBottom="50dp"
+			android:id="@+id/walkingdirectionCircularRod"/>
+
+	</king.helper.view.FloatingLayout>
+
+</LinearLayout>
+
