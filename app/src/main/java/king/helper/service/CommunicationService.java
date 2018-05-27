@@ -7,6 +7,7 @@ import king.helper.manager.*;
 import king.helper.model.*;
 import king.helper.iface.*;
 import android.widget.*;
+import king.helper.*;
 
 public class CommunicationService extends BasedService implements OnConnectionListener
 {
@@ -59,16 +60,24 @@ public class CommunicationService extends BasedService implements OnConnectionLi
 			}
 
 		};
-	    
-		sm=new ServerManager(this,8888);
-		sm.start();
+		
+	    if(MyApplication.IS_START_TEST_SERVER){
+			sm=new ServerManager(this,8888);
+			sm.start();
+		}
 		
 		connectionManager=new ConnectionManager(this);
 		sender=new Sender(this,connectionManager);
 		receiver=new Receiver(this,connectionManager);
 		
 		connectionManager.setOnConnectionListener(this);
-		connectionManager.bulid("0.0.0.0","8888");
+		
+		if(MyApplication.IS_START_TEST_SERVER){
+			connectionManager.bulid("0.0.0.0","8888");
+		}else{
+			connectionManager.bulid(MyApplication.HOST,MyApplication.PORT);
+		}
+
 	}
 
 	@Override
@@ -98,7 +107,10 @@ public class CommunicationService extends BasedService implements OnConnectionLi
 		super.onDestroy();
 		sender.release();
 		connectionManager.release();
-		sm.stop();
+		
+		if(MyApplication.IS_START_TEST_SERVER){
+			sm.stop();
+		}
 	}
 	
 	@Override

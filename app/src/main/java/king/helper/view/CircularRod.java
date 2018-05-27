@@ -24,6 +24,12 @@ public class CircularRod extends View {
     private int innerCircleR;
     private int outerCircleR;
 
+	private final static double WEIGHT=0.18;
+	
+	private final static int OFFSET=128;
+	
+	private double MAX_POLAR_DIAMETER;
+	
 	private OnCircularRodTouchListener onCircularRodTouchListener;
 	
     private final String TAG="CircularRod";
@@ -71,12 +77,16 @@ public class CircularRod extends View {
         centerX =innerCircleX= w/2;
         centerY =innerCircleY= h/2;
         if(w<=h){
-            innerCircleR= (int) (w*0.2);
+            innerCircleR= (int) (w*WEIGHT);
+			//innerCircleR=centerX-OFFSET;
             outerCircleR=centerX;
+			
         }else{
-            innerCircleR= (int) (h*0.2);
+             innerCircleR= (int) (h*WEIGHT);
+			//innerCircleR=centerY-OFFSET;
             outerCircleR=centerY;
         }
+		
     }
 
     @Override
@@ -95,7 +105,7 @@ public class CircularRod extends View {
             outerDrawable.setAlpha(245);
             innerDrawable.draw(canvas);
         }
-
+        MAX_POLAR_DIAMETER=Math.abs(outerCircleR-innerCircleR);
     }
 
     @Override
@@ -106,7 +116,7 @@ public class CircularRod extends View {
                 double x=event.getX()-centerX;
                 double y=event.getY()-centerY;
                 double z=Math.sqrt(x*x+y*y);
-                double d=Math.abs(outerCircleR-innerCircleR);
+                double d=MAX_POLAR_DIAMETER;
                 if(z>0) {
                     double sinY = y / z;
                     double w=Math.toDegrees(Math.asin(sinY));
@@ -126,13 +136,13 @@ public class CircularRod extends View {
                         onTouch(w,d,d);
                     }
                 }else{
-                    onTouch(0,0,0);
+                    onTouch(0,0,MAX_POLAR_DIAMETER);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 innerCircleX=centerX;
                 innerCircleY=centerY;
-                onTouch(0,0,0);
+                onTouch(0,0,MAX_POLAR_DIAMETER);
                 break;
         }
         invalidate();

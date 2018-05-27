@@ -29,6 +29,8 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private Button LEDWord;
 	private Button light;
 	
+	private TextView title;
+	
 	private TextView power;
 	
 	private ImageButton top;
@@ -87,6 +89,13 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		instructionMaker.setOnInstructionMakeListener(new OnInstructionMakeListener(){
 
 				@Override
+				public void onTouch(double polarAngle, double polarDiameter, double maxPolarDiameter)
+				{
+					// TODO: Implement this method
+					showInfo1.setText("pA:"+polarAngle+"\npD:"+polarDiameter+"\nmpD:"+maxPolarDiameter);
+				}
+
+				@Override
 				public void onInstructionMade(Instruction instruction)
 				{
 					// TODO: Implement this method
@@ -98,6 +107,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 					}else{
 						//Toast.makeText(context,"serviceHandler is null!",Toast.LENGTH_SHORT).show();
 					}
+					
 					if(instruction.getType()<Type.INSTRUCTION_WALKING){
 						showInfo0.setText("云台指令(长效)\n"+instruction.toString());
 					}else{
@@ -155,6 +165,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 			public void onServiceDisconnected(ComponentName p1)
 			{
 				// TODO: Implement this method
+				showInfo0.setText("服务中断");
 	            isBinded=false;
 			}
 			
@@ -170,6 +181,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 				switch(msg.what){
 					case CONTROL_STATUS_OK:
 						serviceHandler=(Handler) msg.obj;
+						showInfo0.setText("服务准备完毕！");
 						Log.d(TAG,"activityHandler is ok！");
 						break;
 					case CommunicationService.RESPONSE_POWER:
@@ -199,6 +211,9 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		light=(Button) this.findViewById(R.id.lightSun);
 		power=(TextView) findViewById(R.id.activitycontrolTextViewPower);
 
+		title=(TextView) findViewById(R.id.activitycontrolTextViewTitle);
+		title.setText(MyApplication.TITLE);
+		
 		cameraPanel=(FrameLayout) this.findViewById(R.id.activitycontrolFrameLayout1);
 		
 		top=(ImageButton) this.findViewById(R.id.top);
@@ -308,7 +323,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	}
 	
 	private void bind(Class<?> service){
-		if(MyApplication.isTest())return;
+		if(!MyApplication.IS_ACCESS_SERVICE)return;
 		if(service!=null){
 			Intent intent=new Intent();
 			intent.setClass(this,service);
@@ -317,7 +332,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	}
 	
 	private void unBind(){
-		if(MyApplication.isTest())return;
+		if(!MyApplication.IS_ACCESS_SERVICE)return;
 		if(serviceConnection!=null){
 			unbindService(serviceConnection);
 			serviceConnection=null;
@@ -362,19 +377,22 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private void show(){
 		AlertDialog.Builder builder=new AlertDialog.Builder(this);
 		String title=null;
-		View content=null;
+		int viewId=-1;
+		int selectId=0;
 		switch(dialogFlag){
 			case DIALOG_VOICE_SELECT:
 				title="请选择语音";
+				viewId=R.array.voice;
+				selectId=voiceSelectId;
 				break;
 			case DIALOG_LED_WORD_SELECT:
 				title="请选择字幕";
+				viewId=R.array.LEDWord;
+				selectId=LEDWordSelectId;
 				break;
 		}
-		content=makePanel(dialogFlag);
 		builder.setTitle(title);
-		builder.setView(content);
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+		/*builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
 
 				@Override
 				public void onClick(DialogInterface p1, int p2)
@@ -389,7 +407,29 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 							break;
 					}
 				}
-			});
+			});*/
+		
+		if(viewId!=-1){
+			builder.setSingleChoiceItems(viewId, selectId, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface p1, int p2)
+					{
+						// TODO: Implement this method
+						switch(dialogFlag){
+							case DIALOG_VOICE_SELECT:
+								voiceSelectId=p2;
+								break;
+							case DIALOG_LED_WORD_SELECT:
+								LEDWordSelectId=p2;
+								break;
+						}
+					}
+				});
+			
+		}
+	
+		
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener(){
 
 				@Override
@@ -403,7 +443,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 									voice.setText("无");
 									showInfo1.setText("语音已关闭");
 								}else{
-									voice.setText(voiceSelectId);
+									voice.setText(voiceSelectId+"");
 									showInfo1.setText("选择语音"+voiceSelectId);
 								}
 								onUIListener.OnVoiceStatusChange(voiceSelectId);
@@ -413,7 +453,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 									LEDWord.setText("无");
 									showInfo1.setText("字幕已关闭");
 								}else{
-									LEDWord.setText(LEDWordSelectId);
+									LEDWord.setText(LEDWordSelectId+"");
 									showInfo1.setText("选择字幕"+LEDWordSelectId);
 								}
 								onUIListener.OnLEDWordStatusChange(LEDWordSelectId);
@@ -424,7 +464,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 			});
 		builder.create().show();
 	}
-	
+	/*
 	private View makePanel(int flag){
 		View v=null;
 		switch(flag){
@@ -435,4 +475,5 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		}
 		return v;
 	}
+	*/
 }

@@ -8,6 +8,10 @@
 package king.helper;
 
 public final class R {
+    public static final class array {
+        public static final int LEDWord=0x7f070001;
+        public static final int voice=0x7f070000;
+    }
     public static final class attr {
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -70,38 +74,40 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vertical_direction_button_seletor=0x7f02000f;
     }
     public static final class id {
-        public static final int acrivity_control_container=0x7f080003;
-        public static final int activity_control_layer0=0x7f080004;
-        public static final int activity_control_layer1=0x7f080006;
-        public static final int activity_control_video=0x7f080005;
-        public static final int activity_main_about=0x7f080010;
-        public static final int activity_main_control=0x7f08000e;
-        public static final int activity_main_setting=0x7f08000f;
-        public static final int activitycontrolButtonExit=0x7f080002;
-        public static final int activitycontrolButtonVisibility=0x7f080001;
-        public static final int activitycontrolFrameLayout1=0x7f08000b;
-        public static final int activitycontrolTextViewPower=0x7f080000;
-        public static final int activitycontrolTextViewShow0=0x7f080007;
-        public static final int activitycontrolTextViewShow1=0x7f08000a;
-        public static final int activitycontrolinclude1=0x7f080008;
-        public static final int activitycontrolinclude2=0x7f080009;
-        public static final int activitycontrolinclude3=0x7f08000c;
-        public static final int activitycontrolinclude4=0x7f08000d;
-        public static final int bottom=0x7f08001e;
-        public static final int bottomcontrolButtonVoice=0x7f080011;
-        public static final int bottomcontrolButtonWord=0x7f080013;
-        public static final int cameraDirectionSwitch=0x7f08001a;
-        public static final int cameracontrolButtonFar=0x7f080016;
-        public static final int cameracontrolButtonLarge=0x7f080018;
-        public static final int cameracontrolButtonNear=0x7f080015;
-        public static final int cameracontrolButtonSmall=0x7f080019;
-        public static final int cameracontrolButtonSwitch=0x7f080017;
-        public static final int left=0x7f08001d;
-        public static final int lightAlarm=0x7f080012;
-        public static final int lightSun=0x7f080014;
-        public static final int right=0x7f08001c;
-        public static final int top=0x7f08001b;
-        public static final int walkingdirectionCircularRod=0x7f08001f;
+        public static final int acrivity_control_container=0x7f090004;
+        public static final int activity_control_layer0=0x7f090005;
+        public static final int activity_control_layer1=0x7f090007;
+        public static final int activity_control_video=0x7f090006;
+        public static final int activity_main_about=0x7f090011;
+        public static final int activity_main_control=0x7f09000f;
+        public static final int activity_main_setting=0x7f090010;
+        public static final int activitycontrolButtonExit=0x7f090003;
+        public static final int activitycontrolButtonVisibility=0x7f090002;
+        public static final int activitycontrolFrameLayout1=0x7f09000c;
+        public static final int activitycontrolTextViewPower=0x7f090000;
+        public static final int activitycontrolTextViewShow0=0x7f090008;
+        public static final int activitycontrolTextViewShow1=0x7f09000b;
+        public static final int activitycontrolTextViewTitle=0x7f090001;
+        public static final int activitycontrolinclude1=0x7f090009;
+        public static final int activitycontrolinclude2=0x7f09000a;
+        public static final int activitycontrolinclude3=0x7f09000d;
+        public static final int activitycontrolinclude4=0x7f09000e;
+        public static final int bottom=0x7f090020;
+        public static final int bottomcontrolButtonVoice=0x7f090012;
+        public static final int bottomcontrolButtonWord=0x7f090015;
+        public static final int cameraDirectionSwitch=0x7f09001c;
+        public static final int cameracontrolButtonFar=0x7f090018;
+        public static final int cameracontrolButtonLarge=0x7f09001a;
+        public static final int cameracontrolButtonNear=0x7f090017;
+        public static final int cameracontrolButtonSmall=0x7f09001b;
+        public static final int cameracontrolButtonSwitch=0x7f090019;
+        public static final int left=0x7f09001f;
+        public static final int lightAlarm=0x7f090013;
+        public static final int lightSun=0x7f090016;
+        public static final int right=0x7f09001e;
+        public static final int sound=0x7f090014;
+        public static final int top=0x7f09001d;
+        public static final int walkingdirectionCircularRod=0x7f090021;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -119,7 +125,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int hello_world=0x7f060001;
     }
     public static final class style {
-        public static final int AppTheme=0x7f070000;
+        public static final int AppTheme=0x7f080000;
     }
     public static final class styleable {
         /** Attributes that can be used with a CircularRod.

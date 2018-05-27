@@ -55,6 +55,7 @@ public class ConnectionManager
 	*/
 	private final static int TRANSMISSION_DATA_RECEIVE=0x03;
 	private final static int RELEASE_CONNECTION=0x04;
+	
 	private final static String TAG="ConnectionManager";
     private final static String FLAG="ConnectionManager_HandlerThread";
 
@@ -308,9 +309,10 @@ public class ConnectionManager
 			//获取一个Socket对象，建立网络连接。可以尝试调整Socket参数，以优化连接。
 			try {
 				tempSocket=new Socket(host,port);
-				tempSocket.setSoTimeout(10000);
-				tempSocket.setSoLinger(true,30);
-				tempSocket.setTcpNoDelay(true);
+				//设置这些属性，可能导致与服务器的通信不稳定
+				//tempSocket.setSoTimeout(10000);
+				//tempSocket.setSoLinger(true,30);
+				//tempSocket.setTcpNoDelay(true);
 				tempSocket.setSendBufferSize(sendBufferSize);
 				tempSocket.setReceiveBufferSize(receiveBufferSize);
 				tempSocket.setKeepAlive(true);

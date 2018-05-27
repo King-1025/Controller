@@ -19,6 +19,12 @@ public class Sender
 	private int interval=100;
 	private final static int SEND_SHORT_TIME_INSTRUCTION=0x00;
 	private final static int SEND_LONG_TIME_INSTRUCTION=0x01;
+	
+	private final static int SEND_FLUSH=0x02;
+	
+	//声明为全局变量，可以达到一定的优化
+	private OutputStream outputStream;
+	
 	public Sender(Context context,ConnectionManager connectionManager){
 		this.context=context;
 		this.connectionManager=connectionManager;
@@ -38,6 +44,17 @@ public class Sender
 					 case SEND_LONG_TIME_INSTRUCTION:
 						 doAction(longTimeInstruction);
 						 break;
+				     case SEND_FLUSH:
+						 try
+						 {
+							 outputStream.flush();
+						 }
+						 catch (IOException e)
+						 {
+							 e.printStackTrace();
+						 }
+						 break;
+					 
 				 }
 			}
 		};
@@ -93,11 +110,17 @@ public class Sender
 	
 	private void doAction(Instruction instruction){
 		if(connectionManager!=null){
-			OutputStream outputStream=connectionManager.getOutputStream();
+			if(outputStream==null){
+				outputStream=connectionManager.getOutputStream();
+			}
 			try
 			{
 				outputStream.write(instruction.getBody());
+				
 				outputStream.flush();
+				
+				//mHandler.sendEmptyMessageDelayed(SEND_FLUSH,500);
+				
 			}
 			catch (IOException e)
 		 	{
@@ -109,7 +132,7 @@ public class Sender
 	}
 	
 	private boolean isShortTimeInstruction(Instruction instruction){
-		if(instruction.getType()<=Type.INSTRUCTION_WALKING){
+		if(instruction.getType()<Type.INSTRUCTION_WALKING){
 			return false;
 		}else{
 			return true;

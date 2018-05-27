@@ -11,8 +11,8 @@
 		android:layout_width="match_parent">
 
 		<king.helper.view.CircularRod
-			android:layout_width="120dp"
-			android:layout_height="120dp"
+			android:layout_width="135dp"
+			android:layout_height="135dp"
 			app:bgInnerDrawable="@drawable/sel_inner_circle"
 			app:bgOuterDrawable="@drawable/sel_outer_circle"
 			android:layout_alignParentBottom="true"

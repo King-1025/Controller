@@ -4,4 +4,52 @@
     <string name="app_name">Controller</string>
     <string name="hello_world">Hello world!</string>
 
+	<string-array name="voice">
+		<item>关闭语音</item>
+		<item>语音1</item>
+		<item>语音2</item>
+		<item>语音3</item>
+		<item>语音4</item>
+		<item>语音5</item>
+		<item>语音6</item>
+		<item>语音7</item>
+		<item>语音8</item>
+		<item>语音9</item>
+		<item>语音10</item>
+		<item>语音11</item>
+		<item>语音12</item>
+		<item>语音13</item>
+		<item>语音14</item>
+		<item>语音15</item>
+		<item>语音16</item>
+		<item>语音17</item>
+		<item>语音18</item>
+		<item>语音19</item>
+		<item>语音20</item>
+	</string-array>
+	
+	<string-array name="LEDWord">
+		<item>关闭字幕</item>
+		<item>字幕1</item>
+		<item>字幕2</item>
+		<item>字幕3</item>
+		<item>字幕4</item>
+		<item>字幕5</item>
+		<item>字幕6</item>
+		<item>字幕7</item>
+		<item>字幕8</item>
+		<item>字幕9</item>
+		<item>字幕10</item>
+		<item>字幕11</item>
+		<item>字幕12</item>
+		<item>字幕13</item>
+		<item>字幕14</item>
+		<item>字幕15</item>
+		<item>字幕16</item>
+		<item>字幕17</item>
+		<item>字幕18</item>
+		<item>字幕19</item>
+		<item>字幕20</item>
+	</string-array>
+	
 </resources>

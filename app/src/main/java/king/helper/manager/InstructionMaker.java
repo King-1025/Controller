@@ -22,8 +22,8 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 	private String cameraInstructionDescription;
 	private String walkingInstructionDecription;
  
-	private byte upAndDownCommand;
-	private byte leftAndRightCommand;
+	private byte upAndDownCommand=(byte) WALKING_DIRECTION_MIDDLE;
+	private byte leftAndRightCommand=(byte) WALKING_DIRECTION_MIDDLE;
 	private byte lightCommand;
 	private byte voiceCommand;
 	private byte LEDWordCommand;
@@ -33,13 +33,10 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 	private String voiceDescription="语音关闭";
 	private String LEDWordDescription="LED字幕关闭";
 	
-	//行走控制中心量(10进制:128)
-	private final static byte WALKING_DIRECTION_MIDDLE=(byte) 0x80;
-	//行走控制偏移量(10进制:20)
-	private final static byte WALKING_DIRECTION_OFFSET=(byte) 0x14;
-	
-	private final static byte WALKING_DIRECTION_START=(byte) (WALKING_DIRECTION_MIDDLE-WALKING_DIRECTION_OFFSET);
-	private final static byte WALKING_DIRECTION_END=(byte) (WALKING_DIRECTION_MIDDLE+WALKING_DIRECTION_OFFSET);
+	//行走控制中心量
+	private final static float WALKING_DIRECTION_MIDDLE=127.5f;
+	//行走控制偏移量
+	private final static float WALKING_DIRECTION_OFFSET=20.0f;
 	
 	private final static int FLAG_MAKE_WALKING_INSTRUCTION=0x00;
 	private final static int FLAG_MAKE_CAMERA_INSTRUCTION=0x01;
@@ -61,15 +58,20 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 	{
 		// TODO: Implement this method
 		
+		if(onInstructionMakeListener!=null){
+			onInstructionMakeListener.onTouch(polarAngle,polarDiameter,maxPolarDiameter);
+		}
+		
+		
 		//利用相似性和极坐标计算
 		//纵向
-		upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE+(0xFF*(-polarDiameter*Math.sin(polarAngle)/maxPolarDiameter)));
+		upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE*(1-(polarDiameter*Math.sin(polarAngle)/maxPolarDiameter)));
 		//横向
-		//leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+(0xFF*(polarDiameter*Math.cos(polarAngle)/maxPolarDiameter)));
+		leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE*(1+(polarDiameter*Math.cos(polarAngle)/maxPolarDiameter)));
         
-		double offset=0;
+		double value=WALKING_DIRECTION_MIDDLE*polarDiameter/maxPolarDiameter;
 		
-        if(polarDiameter>offset){
+        if(value>WALKING_DIRECTION_OFFSET){
 			//逆时针方向
 			if(polarAngle>=22.5&&polarAngle<=67.5){
 				//右下
@@ -273,10 +275,10 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 						instruction=CloudPlatformInstruction.create(cameraInstructionType,(byte)0x01,(byte)0x00,(byte)0x00,(byte)0x00,cameraInstructionDescription);
 						break;
 					case Type.INSTRUCTION_CAMERA_ZOOM_OUT:
-						instruction=CloudPlatformInstruction.create(cameraInstructionType,(byte)0x00,(byte)0x40,(byte)0x00,(byte)0x00,cameraInstructionDescription);
-						break;
-					case Type.INSTRUCTION_CAMERA_ZOOM_IN:
 						instruction=CloudPlatformInstruction.create(cameraInstructionType,(byte)0x00,(byte)0x20,(byte)0x00,(byte)0x00,cameraInstructionDescription);
+					    break;
+					case Type.INSTRUCTION_CAMERA_ZOOM_IN:
+						instruction=CloudPlatformInstruction.create(cameraInstructionType,(byte)0x00,(byte)0x40,(byte)0x00,(byte)0x00,cameraInstructionDescription);
 						break;
 				}
 				currentCloudPlatformInstruction=(CloudPlatformInstruction) instruction;
@@ -298,9 +300,10 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 	}
     
 	private int createType(){
-		int type=0;
-		if((upAndDownCommand<WALKING_DIRECTION_START||upAndDownCommand>WALKING_DIRECTION_END)||
-		   (leftAndRightCommand<WALKING_DIRECTION_START||leftAndRightCommand>WALKING_DIRECTION_END)){
+		int type= 0x00;
+	    float x=(int) Math.abs(leftAndRightCommand-WALKING_DIRECTION_MIDDLE);
+	    float y=(int) Math.abs(upAndDownCommand-WALKING_DIRECTION_MIDDLE);
+		if(x>WALKING_DIRECTION_OFFSET||y>WALKING_DIRECTION_OFFSET){
 			type+=Type.INSTRUCTION_WALKING_DIRECTION;
 		}
 	    if(lightCommand!=0){
