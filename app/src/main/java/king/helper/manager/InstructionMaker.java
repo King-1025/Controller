@@ -69,83 +69,102 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 		//横向
 		//leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE*(1+(polarDiameter*Math.cos(polarAngle)/maxPolarDiameter)));
 
+//		double dx,dy;
+//
+//		//逆时针方向
+//		if((polarAngle>337.5&&polarAngle<=360)||(polarAngle>=0&&polarAngle<22.5)){
+//			//右
+//			walkingDirectionDescription="向右运动";
+//
+//			dx=polarDiameter*Math.cos(polarAngle);
+//			dy=0;
+//
+//			logDirection("右",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else if(polarAngle>=22.5&&polarAngle<=67.5){
+//			//右下
+//			walkingDirectionDescription="向右后方运动";
+//
+//			dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.sin(polarAngle));
+//			dy=-dx;
+//
+//			logDirection("右下",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else if(polarAngle>67.5&&polarAngle<112.5){
+//			//下
+//			walkingDirectionDescription="向后方运动";
+//
+//			dx=0;
+//			dy=-polarDiameter*Math.sin(polarAngle);
+//
+//			logDirection("下",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//
+//		}else if(polarAngle>=112.5&&polarAngle<=157.5){
+//			//左下
+//			walkingDirectionDescription="向左后方运动";
+//
+//			dx=dy=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+//
+//			logDirection("左下",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//
+//		}else if(polarAngle>157.5&&polarAngle<202.5){
+//			//左
+//			walkingDirectionDescription="向左运动";
+//
+//			dx=polarDiameter*Math.cos(polarAngle);
+//			dy=0;
+//
+//			logDirection("左",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else if(polarAngle>=202.5&&polarAngle<=247.5){
+//			//左上
+//			walkingDirectionDescription="向左前方运动";
+//
+//			dx=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+//			dy=-dx;
+//
+//			logDirection("左上",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else if(polarAngle>247.5&&polarAngle<292.5){
+//			//上
+//			walkingDirectionDescription="向前方运动";
+//
+//			dx=0;
+//			dy=-polarDiameter*Math.sin(polarAngle);
+//
+//			logDirection("上",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else if(polarAngle>=292.5&&polarAngle<=337.5){
+//			//右上
+//			walkingDirectionDescription="向右前方运动";
+//
+//			dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+//			dy=dx;
+//
+//			logDirection("右上",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//		}else{
+//			//无方向
+//			walkingDirectionDescription="机身停止运动";
+//
+//			dx=dy=0;
+//
+//			logDirection("无方向",polarAngle,polarDiameter,maxPolarDiameter);
+//
+//			//Log.w(TAG,"polarAngle is not in [0,360] !");
+//		}
+
 		double dx,dy;
 
-		//逆时针方向
-		if((polarAngle>337.5&&polarAngle<=360)||(polarAngle>=0&&polarAngle<22.5)){
-			//右
-			walkingDirectionDescription="向右运动";
+		double xf=0.75;
 
-			dx=polarDiameter*Math.cos(polarAngle);
-			dy=0;
+		double yf=0.65;
 
-			logDirection("右",polarAngle,polarDiameter,maxPolarDiameter);
+		//float zf=0.290f;
 
-		}else if(polarAngle>=22.5&&polarAngle<=67.5){
-			//右下
-			walkingDirectionDescription="向右后方运动";
-
-			dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.sin(polarAngle));
-			dy=-dx;
-
-			logDirection("右下",polarAngle,polarDiameter,maxPolarDiameter);
-
-		}else if(polarAngle>67.5&&polarAngle<112.5){
-			//下
-			walkingDirectionDescription="向后方运动";
-
-			dx=0;
-			dy=-polarDiameter*Math.sin(polarAngle);
-
-			logDirection("下",polarAngle,polarDiameter,maxPolarDiameter);
-
-
-		}else if(polarAngle>=112.5&&polarAngle<=157.5){
-			//左下
-			walkingDirectionDescription="向左后方运动";
-
-			dx=dy=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
-
-			logDirection("左下",polarAngle,polarDiameter,maxPolarDiameter);
-
-
-		}else if(polarAngle>157.5&&polarAngle<202.5){
-			//左
-			walkingDirectionDescription="向左运动";
-
-			dx=polarDiameter*Math.cos(polarAngle);
-			dy=0;
-
-			logDirection("左",polarAngle,polarDiameter,maxPolarDiameter);
-
-		}else if(polarAngle>=202.5&&polarAngle<=247.5){
-			//左上
-			walkingDirectionDescription="向左前方运动";
-
-			dx=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
-			dy=-dx;
-
-			logDirection("左上",polarAngle,polarDiameter,maxPolarDiameter);
-
-		}else if(polarAngle>247.5&&polarAngle<292.5){
-			//上
-			walkingDirectionDescription="向前方运动";
-
-			dx=0;
-			dy=-polarDiameter*Math.sin(polarAngle);
-
-			logDirection("上",polarAngle,polarDiameter,maxPolarDiameter);
-
-		}else if(polarAngle>=292.5&&polarAngle<=337.5){
-			//右上
-			walkingDirectionDescription="向右前方运动";
-
-			dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
-			dy=dx;
-
-			logDirection("右上",polarAngle,polarDiameter,maxPolarDiameter);
-
-		}else{
+		if(polarAngle<0){
 			//无方向
 			walkingDirectionDescription="机身停止运动";
 
@@ -154,6 +173,106 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 			logDirection("无方向",polarAngle,polarDiameter,maxPolarDiameter);
 
 			//Log.w(TAG,"polarAngle is not in [0,360] !");
+		}else{
+
+			//逆时针方向
+			if((polarAngle>337.5&&polarAngle<=360)||(polarAngle>=0&&polarAngle<22.5)){
+				//右
+				walkingDirectionDescription="向右运动";
+				dx=maxPolarDiameter*xf;
+				//dx=polarDiameter*Math.cos(polarAngle);
+				dy=0;
+
+				logDirection("右",polarAngle,polarDiameter,maxPolarDiameter);
+
+
+			}else if(polarAngle>=22.5&&polarAngle<=67.5){
+
+				//右下
+				walkingDirectionDescription="向右后方运动";
+
+				dx=maxPolarDiameter*xf;
+				//dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.sin(polarAngle));
+				dy=-maxPolarDiameter*yf;
+
+				logDirection("右下",polarAngle,polarDiameter,maxPolarDiameter);
+
+			}else if(polarAngle>67.5&&polarAngle<112.5){
+				//下
+				walkingDirectionDescription="向后方运动";
+
+				dx=0;
+				//dy=-polarDiameter*Math.sin(polarAngle);
+				dy=-maxPolarDiameter*yf;
+
+				logDirection("下",polarAngle,polarDiameter,maxPolarDiameter);
+
+
+			}else if(polarAngle>=112.5&&polarAngle<=157.5){
+
+				//左下
+				walkingDirectionDescription="向左后方运动";
+
+				//dx=dy=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+
+				dx=-maxPolarDiameter*xf;
+				dy=-maxPolarDiameter*yf;
+
+				logDirection("左下",polarAngle,polarDiameter,maxPolarDiameter);
+
+
+			}else if(polarAngle>157.5&&polarAngle<202.5){
+				//左
+				walkingDirectionDescription="向左运动";
+
+				dx=-maxPolarDiameter*xf;
+				//dx=polarDiameter*Math.cos(polarAngle);
+				dy=0;
+
+				logDirection("左",polarAngle,polarDiameter,maxPolarDiameter);
+
+			}else if(polarAngle>=202.5&&polarAngle<=247.5){
+				//左上
+				walkingDirectionDescription="向左前方运动";
+
+				dx=-maxPolarDiameter*xf;
+				//dx=-polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+				dy=maxPolarDiameter*yf;
+
+				logDirection("左上",polarAngle,polarDiameter,maxPolarDiameter);
+
+			}else if(polarAngle>247.5&&polarAngle<292.5){
+				//上
+				walkingDirectionDescription="向前方运动";
+
+				dx=0;
+				//dy=-polarDiameter*Math.sin(polarAngle);
+
+				dy=maxPolarDiameter*yf;
+
+				logDirection("上",polarAngle,polarDiameter,maxPolarDiameter);
+
+			}else if(polarAngle>=292.5&&polarAngle<=337.5){
+
+				//右上
+				walkingDirectionDescription="向右前方运动";
+
+				dx=maxPolarDiameter*xf;
+				//dx=polarDiameter*absCompareMax(Math.sin(polarAngle),Math.cos(polarAngle));
+				dy=maxPolarDiameter*yf;
+
+				logDirection("右上",polarAngle,polarDiameter,maxPolarDiameter);
+
+			}else{
+				//无方向
+				walkingDirectionDescription="机身停止运动";
+
+				dx=dy=0;
+
+				logDirection("无方向",polarAngle,polarDiameter,maxPolarDiameter);
+
+				//Log.w(TAG,"polarAngle is not in [0,360] !");
+			}
 		}
 
 		double dmin=-maxPolarDiameter;
