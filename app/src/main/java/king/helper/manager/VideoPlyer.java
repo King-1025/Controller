@@ -283,4 +283,5 @@ public class VideoPlyer {
 //       //Toast.makeText(context,"截图失败，请重试！",Toast.LENGTH_SHORT).show();
 //    }
 
+
 }
