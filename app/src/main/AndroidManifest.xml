@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.ControlActivity"
                   android:launchMode="singleTask"
@@ -32,16 +31,13 @@
 		<activity android:name=".ui.SettingActivity"/>
 		<activity android:name=".ui.AboutActivity"/>
         <activity android:name=".ui.ImageSeeActivity"/>
-
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <service android:name=".service.CommunicationService" />
-
     </application>
 
 </manifest>
