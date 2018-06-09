@@ -107,7 +107,9 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 
 		context=this;
 
-		videoManager=new VideoManager(context,(SurfaceView)findViewById(R.id.activity_control_video));
+		if(MyApplication.IS_ENABEL_VIDEO){
+			videoManager=new VideoManager(context,(SurfaceView)findViewById(R.id.activity_control_video));
+		}
 
 		bindAllView();
 

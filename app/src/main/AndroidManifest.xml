@@ -25,14 +25,23 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity"
-                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.ControlActivity"
-                  android:launchMode="singleInstance"/>
+                  android:launchMode="singleTask"
+                  android:process=":vitamio"/>
 		<activity android:name=".ui.SettingActivity"/>
 		<activity android:name=".ui.AboutActivity"/>
         <activity android:name=".ui.ImageSeeActivity"/>
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <service android:name=".service.CommunicationService" />
+
     </application>
 
 </manifest>

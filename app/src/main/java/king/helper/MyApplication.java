@@ -7,20 +7,20 @@ import king.helper.model.Type;
 
 public class MyApplication extends Application
 {
-  ///
+
 	public final static boolean IS_ACCESS_SERVICE=true;
 	
     public final static boolean IS_START_TEST_SERVER=false;
 
-	public final static String TITLE="测试模式";
+	public final static boolean IS_ENABEL_VIDEO=true;
+
+	public final static String TITLE="一般控制模式";
 	
 	public final static String HOST="192.168.12.1";
 	
 	public final static String PORT="8888";
 
 	public final static long SPALASH_TIME=2000;
-
-	public final static boolean IS_ENABEL_VIDEO=false;
 
 	public final static String VIDEO_URL="rtsp://";
 
