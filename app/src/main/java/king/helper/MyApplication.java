@@ -2,7 +2,6 @@ package king.helper;
 import android.app.*;
 import android.content.Context;
 import android.os.Environment;
-import android.widget.*;
 
 import king.helper.model.Type;
 
