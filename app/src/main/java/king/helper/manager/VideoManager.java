@@ -7,7 +7,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import king.helper.utils.Save;
+import io.vov.vitamio.Vitamio;
 
 /**
  * Created by King on 2018/5/30.
@@ -20,7 +20,6 @@ public class VideoManager implements SurfaceHolder.Callback{
     private SurfaceHolder surfaceHolder;
     private boolean isPrepareAsync=true;
     private final static String TAG="VideoManager";
-
 
     public VideoManager(Context context, SurfaceView surfaceView){
         this(context,surfaceView.getHolder());
@@ -36,7 +35,12 @@ public class VideoManager implements SurfaceHolder.Callback{
             this.surfaceHolder.setKeepScreenOn(true);
             this.surfaceHolder.addCallback(this);
 
-//            videoPlyer=new VideoPlyer(this.context,this.surfaceHolder,isPrepareAsync);
+            if(Vitamio.isInitialized(this.context)){
+                videoPlyer=new VideoPlyer(this.context,this.surfaceHolder,isPrepareAsync);
+            }else{
+                Log.e(TAG,"vitamio is not initialized!");
+                Toast.makeText(context,"Error:vitamio is not initialized!",Toast.LENGTH_SHORT).show();
+            }
         }else{
             Log.d(TAG,"surfaceHolder is null!");
         }
@@ -46,7 +50,7 @@ public class VideoManager implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         if(videoPlyer!=null){
-            //videoPlyer.start(Save.getVideoURL());
+            videoPlyer.start();
             Log.d(TAG,"surfaceCreated():视频播放器开始工作...");
         }else {
             Toast.makeText(context,"videoPlayer is null!",Toast.LENGTH_SHORT);
@@ -61,7 +65,7 @@ public class VideoManager implements SurfaceHolder.Callback{
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         if(videoPlyer!=null){
-            //videoPlyer.destroy();
+            videoPlyer.destroy();
         }
     }
 
@@ -71,7 +75,7 @@ public class VideoManager implements SurfaceHolder.Callback{
 
     public void realse(){
         if(videoPlyer!=null){
-           // videoPlyer.destroy();
+            videoPlyer.destroy();
         }
     }
 }

@@ -94,6 +94,8 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private CommunicationService communicationService;
 	private boolean isAccessSend=false;
 
+	//视频管理
+	private VideoManager videoManager;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -104,6 +106,8 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		setContentView(R.layout.activity_control);
 
 		context=this;
+
+		videoManager=new VideoManager(context,(SurfaceView)findViewById(R.id.activity_control_video));
 
 		bindAllView();
 
@@ -291,7 +295,15 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 			unBind();
 		}
 	}
-	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(videoManager!=null){
+			videoManager.realse();
+		}
+	}
+
 	@Override
 	public void onClick(View p1)
 	{

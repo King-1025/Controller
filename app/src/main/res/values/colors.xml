@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#414141</color>
-    <color name="colorPrimaryDark">#262626</color>
-    <color name="colorPrimary0">#66ecca</color>
-    <color name="colorPrimaryDark0">#2ddeb1</color>
+    <color name="colorPrimary">@color/colorPrimary_0</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_0</color>
     <color name="colorAccent">#25dade</color>
     <color name="colorWhite">#fbfcfb</color>
     <color name="colorTextBase">#0d0d0d</color>
@@ -16,4 +14,11 @@
     <color name="colorFlashBackground">#1DFFFFFF</color>
     <color name="colorFlashText">#DFFFFFFF</color>
     <color name="temp_bt">#FFF</color>
+
+    //主色调
+    <color name="colorPrimary_0">#66ecca</color>
+    <color name="colorPrimaryDark_0">#2ddeb1</color>
+
+    <color name="colorPrimary_1">#414141</color>
+    <color name="colorPrimaryDark_1">#262626</color>
 </resources>
