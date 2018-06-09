@@ -8,6 +8,7 @@ import king.helper.model.Type;
 
 public class MyApplication extends Application
 {
+	//xxx
 
 	public final static boolean IS_ACCESS_SERVICE=true;
 	
