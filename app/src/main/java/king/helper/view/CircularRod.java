@@ -14,9 +14,11 @@ public class CircularRod extends View {
 
     private Drawable outerDrawable;
     private Drawable innerDrawable;
+
     //中心坐标(控件左上角为原点)
     private int centerX;
     private int centerY;
+
     //内圆坐标(控件左上角为原点)
     private int innerCircleX;
     private int innerCircleY;
@@ -24,15 +26,23 @@ public class CircularRod extends View {
     private int innerCircleR;
     private int outerCircleR;
 
-	private final static double WEIGHT=0.18;
+	private final static double WEIGHT=0.15 ;
 	
-	private final static int OFFSET=128;
+	//private final static float OFFSET=127.5f;
 	
 	private double MAX_POLAR_DIAMETER;
 	
 	private OnCircularRodTouchListener onCircularRodTouchListener;
 	
     private final String TAG="CircularRod";
+
+    private Paint paint;
+
+    private int lineColor=Color.WHITE;
+
+    private float lineWidth=8;
+
+    private int LINE_OFFSET=5;
 
     public CircularRod(Context context) {
         super(context);
@@ -67,6 +77,10 @@ public class CircularRod extends View {
             innerDrawable.setCallback(this);
         }
         a.recycle();
+
+        paint=new Paint();
+        paint.setColor(lineColor);
+        paint.setStrokeWidth(lineWidth);
     }
 
     @Override
@@ -78,12 +92,12 @@ public class CircularRod extends View {
         centerY =innerCircleY= h/2;
         if(w<=h){
             innerCircleR= (int) (w*WEIGHT);
-			//innerCircleR=centerX-OFFSET;
+			//innerCircleR=(int) (centerX-OFFSET);
             outerCircleR=centerX;
 			
         }else{
-             innerCircleR= (int) (h*WEIGHT);
-			//innerCircleR=centerY-OFFSET;
+            innerCircleR= (int) (h*WEIGHT);
+			//innerCircleR=(int) (centerY-OFFSET);
             outerCircleR=centerY;
         }
 		
@@ -92,6 +106,10 @@ public class CircularRod extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //X轴方向划线
+        canvas.drawLine(LINE_OFFSET,centerY,2*centerX-LINE_OFFSET,centerY,paint);
+        //Y轴方向划线
+        canvas.drawLine(centerX,LINE_OFFSET,centerX,2*centerY-LINE_OFFSET,paint);
 
         if (outerDrawable != null) {
             outerDrawable.setBounds(centerX-outerCircleR,centerY-outerCircleR,
@@ -99,6 +117,7 @@ public class CircularRod extends View {
             outerDrawable.setAlpha(128);
             outerDrawable.draw(canvas);
         }
+
         if (innerDrawable != null) {
             innerDrawable.setBounds(innerCircleX-innerCircleR,innerCircleY-innerCircleR,
 									innerCircleX+innerCircleR,innerCircleY+innerCircleR);
@@ -106,6 +125,7 @@ public class CircularRod extends View {
             innerDrawable.draw(canvas);
         }
         MAX_POLAR_DIAMETER=Math.abs(outerCircleR-innerCircleR);
+
     }
 
     @Override
@@ -136,13 +156,13 @@ public class CircularRod extends View {
                         onTouch(w,d,d);
                     }
                 }else{
-                    onTouch(0,0,MAX_POLAR_DIAMETER);
+                    onTouch(-1,0,MAX_POLAR_DIAMETER);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 innerCircleX=centerX;
                 innerCircleY=centerY;
-                onTouch(0,0,MAX_POLAR_DIAMETER);
+                onTouch(-1,0,MAX_POLAR_DIAMETER);
                 break;
         }
         invalidate();

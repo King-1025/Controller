@@ -10,12 +10,13 @@ public class WalkingInstruction extends Instruction
 	byte2: 摇杆上下指令
 	byte3: 摇杆左右指令
 	其他功能操作
-	byte4: 高4位->照明灯控制(0000:照明灯关闭，1111照明灯打开) 低4位->警灯控制(0000警灯关闭，1111警灯打开)
+	byte4:0x01(警灯开) 0x02(警灯关) 0x03(照明灯开) 0x04(照明灯关)#高4位->照明灯控制(0000:照明灯关闭，1111照明灯打开) 低4位->警灯控制(0000警灯关闭，1111警灯打开)
 	byte5: 语音控制
 	byte6: LED显示屏节目播放
+	byte8:(0-0x1e)音量调节(十进制:1-30)
 	byte7：0xaa(数据包尾)  
 	*/
-	private final static int BODY_SIZE=8;
+	private final static int BODY_SIZE=9;
 	
 	private static WalkingInstruction walkingInstruction;
 	
@@ -25,11 +26,11 @@ public class WalkingInstruction extends Instruction
 	@Override
 	protected void initBody()
 	{
-		// TODO: Implement this method
 		body[0]=(byte)0x55; //包头
 		body[1]=(byte)0x01; //地址位
 		body[2]=(byte)0x80; //控制杆上下
 		body[3]=(byte)0x80; //控制杆左右
+		body[7]=(byte)0x0F; //音量调节
 		body[BODY_SIZE-1]=(byte)0xAA; //包尾
 	}
 	
@@ -53,13 +54,18 @@ public class WalkingInstruction extends Instruction
 		body[6]=command;
 	}
 	
-	public static WalkingInstruction create(int type,byte upAndownCommand,byte leftAndRightCommand,byte lightCommand,byte voiceCommand,byte LEDWordCommand,String description){
+	public void setVolume(byte command){
+		body[7]=command;
+	}
+	
+	public static WalkingInstruction create(int type,byte upAndownCommand,byte leftAndRightCommand,byte lightCommand,byte voiceCommand,byte LEDWordCommand,byte volume,String description){
 		walkingInstruction=new WalkingInstruction(type,description);
 		walkingInstruction.setUpAndDownCommand(upAndownCommand);
 		walkingInstruction.setLeftAndRightCommand(leftAndRightCommand);
 		walkingInstruction.setLightCommand(lightCommand);
 		walkingInstruction.setVoiceCommand(voiceCommand);
 		walkingInstruction.setLEDWordCommand(LEDWordCommand);
+		walkingInstruction.setVolume(volume);
 		return walkingInstruction;
 	}
 }   

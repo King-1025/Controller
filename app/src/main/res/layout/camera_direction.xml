@@ -7,8 +7,8 @@
 	android:gravity="center">
 
 	<RelativeLayout
-		android:layout_width="180dp"
-		android:layout_height="180dp">
+		android:layout_width="@dimen/camera_direction_size"
+		android:layout_height="@dimen/camera_direction_size">
 
 		<ImageButton
 			android:id="@+id/cameraDirectionSwitch"
@@ -16,9 +16,8 @@
 			android:layout_height="wrap_content"
 			android:layout_centerHorizontal="true"
 			android:layout_centerVertical="true"
-			android:layout_margin="5dp"
-			android:background="@drawable/circle_button_seletor"
-			android:text="kfd"/>
+			android:layout_margin="@dimen/camera_direction_center_margin"
+			android:background="@drawable/circle_button_seletor" />
 
 		<ImageButton
 			android:id="@+id/top"

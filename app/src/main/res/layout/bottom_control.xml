@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:gravity="bottom|center">
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+	android:layout_height="wrap_content"
+	android:gravity="center"
+	android:orientation="horizontal">
 
 		<LinearLayout
 			android:layout_width="wrap_content"
@@ -19,10 +13,12 @@
 			android:orientation="vertical">
 
 			<Button
-				android:layout_width="35dp"
-				android:layout_height="35dp"
+				android:layout_width="@dimen/circle_size"
+				android:layout_height="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="无"
+				android:text="@string/nothing"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/circle_text_size"
 				android:id="@+id/bottomcontrolButtonVoice"/>
 
 			<View
@@ -37,12 +33,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"
-				android:text="语音"/>
+				android:text="@string/voice"
+				android:textColor="@color/colorTextBase"
+				android:textSize="@dimen/circle_text_size"/>
 
 		</LinearLayout>
 
 		<View
-			android:layout_width="4dp"
+			android:layout_width="@dimen/bottom_line_size"
 			android:layout_height="match_parent"/>
 
 		<LinearLayout
@@ -53,10 +51,12 @@
 
 			<Button
 				android:id="@+id/lightAlarm"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
+				android:layout_width="@dimen/circle_size"
+				android:layout_height="@dimen/circle_size"
+				android:textColor="@color/colorCircleButtonText"
 				android:background="@drawable/circle_button_seletor"
-				android:text="开"/>
+				android:textSize="@dimen/circle_text_size"
+				android:text="@string/open"/>
 
 			<View
 				android:layout_width="match_parent"
@@ -70,13 +70,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"
-				android:text="警灯"/>
+				android:text="@string/alarm_light"
+				android:textColor="@color/colorTextBase"
+				android:textSize="@dimen/circle_text_size"/>
 
 		</LinearLayout>
 
-
 		<View
-			android:layout_width="4dp"
+			android:layout_width="@dimen/bottom_line_size"
 			android:layout_height="match_parent"/>
 
 		<LinearLayout
@@ -86,11 +87,13 @@
 			android:orientation="vertical">
 
 			<Button
-				android:id="@+id/sound"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
+				android:layout_width="@dimen/circle_size"
+				android:layout_height="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="25"/>
+				android:text="@string/volume_default_value"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/bottomcontrolButtonVolume"/>
 
 			<View
 				android:layout_width="match_parent"
@@ -104,12 +107,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"
-				android:text="音量"/>
+				android:text="@string/volume"
+				android:textColor="@color/colorTextBase"
+				android:textSize="@dimen/circle_text_size"/>
 
 		</LinearLayout>
-		
+
 		<View
-			android:layout_width="4dp"
+			android:layout_width="@dimen/bottom_line_size"
 			android:layout_height="match_parent"/>
 
 		<LinearLayout
@@ -119,10 +124,12 @@
 			android:orientation="vertical">
 
 			<Button
-				android:layout_width="35dp"
-				android:layout_height="35dp"
+				android:layout_width="@dimen/circle_size"
+				android:layout_height="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="无"
+				android:text="@string/nothing"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
 				android:id="@+id/bottomcontrolButtonWord"/>
 
 			<View
@@ -137,12 +144,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"
-				android:text="字幕"/>
+				android:text="@string/word"
+				android:textColor="@color/colorTextBase"
+				android:textSize="@dimen/circle_text_size"/>
 
 		</LinearLayout>
 
 		<View
-			android:layout_width="4dp"
+			android:layout_width="@dimen/bottom_line_size"
 			android:layout_height="match_parent"/>
 
 		<LinearLayout
@@ -153,10 +162,12 @@
 
 			<Button
 				android:id="@+id/lightSun"
-				android:layout_width="35dp"
-				android:layout_height="35dp"
+				android:layout_width="@dimen/circle_size"
+				android:layout_height="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="开"/>
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:text="@string/open"/>
 
 			<View
 				android:layout_width="match_parent"
@@ -170,11 +181,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"
-				android:text="照明"/>
+				android:text="@string/light"
+				android:textColor="@color/colorTextBase"
+				android:textSize="@dimen/circle_text_size"/>
 
 		</LinearLayout>
-
-	</LinearLayout>
 
 </LinearLayout>
 

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#66ecca</color>
-    <color name="colorPrimaryDark">#2ddeb1</color>
+    <color name="colorPrimary">#414141</color>
+    <color name="colorPrimaryDark">#262626</color>
+    <color name="colorPrimary0">#66ecca</color>
+    <color name="colorPrimaryDark0">#2ddeb1</color>
     <color name="colorAccent">#25dade</color>
-    <color name="colorViewPagerPoint">#0bca9a</color>
-    <color name="colorWhite">#dbdedd</color>
+    <color name="colorWhite">#fbfcfb</color>
     <color name="colorTextBase">#0d0d0d</color>
-    <color name="colorViewPagerBase">#1E000000</color>
     <color name="colorLinePrimary">#1abf95</color>
-    <color name="colorLineBlack">#6C000000</color>
-    <color name="colorFragmentBase">#d8dcdb</color>
-    <color name="colorItemBackgroundNormal">#e9edec</color>
-    <color name="colorItemBackgroundSelect">#32e1be</color>
+    <color name="colorLineBlack">#e6a7a6a6</color>
+    <color name="colorCircleButtonText">#f6f7ff</color>
+    <color name="colorShowText0">#df4d3a</color>
+    <color name="colorShowText1">#2ddaaf</color>
+    <color name="colorSurfaceBackground">#5FFFFFFF</color>
+    <color name="colorFlashBackground">#1DFFFFFF</color>
+    <color name="colorFlashText">#DFFFFFFF</color>
+    <color name="temp_bt">#FFF</color>
 </resources>

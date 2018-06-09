@@ -22,22 +22,24 @@ public class ServerManager
 	
 	
 	private Socket client = null;  
-	
+
 	public ServerManager(Context context,int bindPort)
 	{
 		this.context=context;
 	    this.port=bindPort;
 	}
 	
-	public void start() {  
+	public void start() {
 	if(isStart)return;
+	isContinueListen=true;
 	  new Thread(){
 			public void run(){
-				try {  
+				try {
 					server = new ServerSocket(port);  
 					mExecutorService = Executors.newCachedThreadPool();  //create a thread pool  
 					Log.d(TAG,"服务器已经启动..."+server.getLocalSocketAddress());
-					while(isContinueListen) {  
+					while(isContinueListen) {
+						isStart=true;
 						client = server.accept();  
 						if(client!=null){
 							mList.add(client);  
@@ -47,11 +49,11 @@ public class ServerManager
 									@Override
 									public void run()
 									{
-										// TODO: Implement this method
 										try
 										{
+
 											out = client.getOutputStream();
-											while (true)
+											while (isContinueListen)
 											{
 												sendPower(out);
 												try
@@ -61,18 +63,35 @@ public class ServerManager
 												catch (InterruptedException e)
 												{e.printStackTrace();}
 											}
+											try {
+												if(out!=null){
+													out.close();
+													out=null;
+												}
+											} catch (IOException e) {
+												e.printStackTrace();
+											}
 										}
 										catch (IOException e)
 										{
 											e.printStackTrace();
 										}
-										
+
+										try {
+											if(client!=null){
+												mList.remove(client);
+												client.close();
+												client=null;
+											}
+										} catch (IOException e) {
+											e.printStackTrace();
+										}
 									}
 									
 							});
 						}
-					}  
-					isStart=true;
+					}
+					server.close();
 				}catch (Exception e) {  
 					e.printStackTrace();  
 					Log.d(TAG,"服务器启动失败!");
@@ -83,13 +102,14 @@ public class ServerManager
 	
 	
 	public void stop(){
-		isContinueListen=false;
-		isStart=false;
-		Log.d(TAG,"服务器已停止!");
-		Toast.makeText(context,"服务器已停止！",Toast.LENGTH_LONG).show();
-		
+		if(isContinueListen){
+			isContinueListen=false;
+			isStart=false;
+			Log.d(TAG,"服务器已停止!");
+			Toast.makeText(context,"服务器已停止！",Toast.LENGTH_LONG).show();
+		}
 	}
-	
+
     class Service implements Runnable {  
 		private Socket socket;  
 		private InputStream in = null;  
@@ -112,9 +132,9 @@ public class ServerManager
 		public void run() {  
 			// TODO Auto-generated method stub  
 			
-			while(true)
+			while(isContinueListen)
 	       {  
-                byte []data=new byte[8];
+                byte []data=new byte[9];
 				try
 				{
 				   int count=in.read(data);
@@ -125,8 +145,14 @@ public class ServerManager
 				 
 			    } catch (Exception e) {  
 			    	e.printStackTrace();  
-			    } 
-	        }     
+			    }
+		   }
+			try {
+				in.close();
+				in=null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
         }
      }
 	 
@@ -142,7 +168,7 @@ public class ServerManager
 		 catch (IOException e)
 		 {e.printStackTrace();}
 		
-		// Log.d(TAG,"解析:"+parser(power));
+		 //Log.d(TAG,"解析:"+parser(power));
 	 }
 	
 	 

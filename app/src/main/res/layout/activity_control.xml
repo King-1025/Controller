@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
@@ -9,12 +8,11 @@
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="35dp"
+		android:layout_height="@dimen/title_bar_height"
 		android:orientation="horizontal"
 		android:visibility="visible"
 		android:padding="1dp"
-		android:gravity="center_vertical"
-		android:background="@color/colorItemBackgroundNormal">
+		android:gravity="center_vertical">
 
 		<LinearLayout
 			android:layout_height="match_parent"
@@ -23,16 +21,17 @@
 			android:gravity="center_vertical">
 
 			<View
-				android:layout_width="1dp"
+				android:layout_width="@dimen/default_line_size"
 				android:layout_height="match_parent"/>
 
 			<TextView
-				android:text="电量显示"
+				android:text="@string/power_show"
+				android:textSize="@dimen/default_show_text_size"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:background="@android:color/transparent"
+				android:textColor="@color/colorTextBase"
 				android:id="@+id/activitycontrolTextViewPower"/>
-
 		</LinearLayout>
 
 		<LinearLayout
@@ -43,12 +42,12 @@
 			android:layout_centerHorizontal="true">
 
 			<TextView
-				android:text="标题"
+				android:text="@string/control_title"
+				android:textColor="@color/colorTextBase"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:background="@android:color/transparent"
 				android:id="@+id/activitycontrolTextViewTitle"/>
-
 		</LinearLayout>
 
 		<LinearLayout
@@ -60,29 +59,45 @@
 			android:gravity="center_vertical">
 
 			<Button
-				android:layout_height="30dp"
-				android:layout_width="30dp"
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="隐藏"
+				android:text="@string/screenshot"
 				android:padding="2dp"
-				android:textSize="10sp"
-				android:id="@+id/activitycontrolButtonVisibility"/>
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/activitycontrolButtonScreenshot"/>
 
 			<View
-				android:layout_width="1dp"
+				android:layout_width="@dimen/default_line_size"
 				android:layout_height="match_parent"/>
 
 			<Button
-				android:layout_height="30dp"
-				android:layout_width="30dp"
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="离开"
+				android:text="@string/hide"
 				android:padding="2dp"
-				android:textSize="10sp"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/activitycontrolButtonVisibility"/>
+
+			<View
+				android:layout_width="@dimen/default_line_size"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
+				android:background="@drawable/circle_button_seletor"
+				android:text="@string/exit"
+				android:padding="2dp"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
 				android:id="@+id/activitycontrolButtonExit"/>
 
 			<View
-				android:layout_width="1dp"
+				android:layout_width="@dimen/default_line_size"
 				android:layout_height="match_parent"/>
 
 		</LinearLayout>
@@ -102,11 +117,11 @@
 
 			<SurfaceView
 				android:id="@+id/activity_control_video"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
 				android:layout_centerInParent="true"
 				android:visibility="visible"
-				android:background="#5EFFFFFF"/>
+				android:background="@color/colorSurfaceBackground"/>
 
 		</RelativeLayout>
 
@@ -121,22 +136,23 @@
 				android:orientation="horizontal">
 
 				<TextView
-					android:text="信息0"
+					android:id="@+id/activitycontrolTextViewShow0"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
+					android:layout_height="match_parent"
 					android:layout_marginLeft="3dp"
-					android:textColor="#EB2A38"
-					android:id="@+id/activitycontrolTextViewShow0"/>
+					android:text="@string/show_info_0"
+					android:textColor="@color/colorShowText0"
+					android:textSize="@dimen/default_show_text_size" />
 
 			</LinearLayout>
 
 			<LinearLayout
-				android:layout_height="205dp"
+				android:layout_height="@dimen/control_panel_height"
 				android:layout_width="match_parent"
 				android:orientation="horizontal"
 				android:layout_alignParentBottom="true">
 
-				<RelativeLayout
+				<FrameLayout
 					android:layout_height="match_parent"
 					android:layout_width="match_parent"
 					android:layout_weight="1.0">
@@ -145,13 +161,14 @@
 						layout="@layout/walking_direction"
 						android:layout_height="match_parent"
 						android:layout_width="match_parent"
-						android:id="@+id/activitycontrolinclude1"/>
+						android:id="@+id/activitycontrolinclude1"
+						android:visibility="visible"/>
 
-				</RelativeLayout>
+				</FrameLayout>
 
 				<RelativeLayout
 					android:layout_height="match_parent"
-					android:layout_width="210dp">
+					android:layout_width="@dimen/control_center_panel_width">
 
 					<include
 						layout="@layout/bottom_control"
@@ -161,20 +178,21 @@
 						android:id="@+id/activitycontrolinclude2"/>
 
 					<LinearLayout
-						android:layout_height="wrap_content"
 						android:layout_width="match_parent"
-						android:orientation="horizontal"
+						android:layout_height="wrap_content"
 						android:layout_above="@id/activitycontrolinclude2"
+						android:layout_marginBottom="20dp"
 						android:gravity="center"
-						android:layout_marginBottom="20dp">
+						android:orientation="horizontal">
 
 						<TextView
-							android:text="信息1"
+							android:id="@+id/activitycontrolTextViewShow1"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_marginLeft="3dp"
-							android:textColor="@color/colorPrimaryDark"
-							android:id="@+id/activitycontrolTextViewShow1"/>
+							android:text="@string/show_info_1"
+							android:textSize="@dimen/default_show_text_size"
+							android:textColor="@color/colorShowText1" />
 
 					</LinearLayout>
 

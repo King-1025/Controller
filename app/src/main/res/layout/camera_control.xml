@@ -16,21 +16,25 @@
 			android:gravity="center">
 
 			<Button
-				android:layout_width="50dp"
-				android:layout_height="50dp"
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
 				android:background="@drawable/rectangle_button_seletor"
-				android:text="聚近"
+				android:text="@string/zoom_in"
+				android:textSize="@dimen/camera_text_size"
+				android:textColor="@color/colorCircleButtonText"
 				android:id="@+id/cameracontrolButtonNear"/>
 
 			<View
-				android:layout_width="35dp"
+				android:layout_width="@dimen/camera_line_size"
 				android:layout_height="match_parent"/>
 
 			<Button
-				android:layout_width="50dp"
-				android:layout_height="50dp"
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
 				android:background="@drawable/rectangle_button_seletor"
-				android:text="聚远"
+				android:text="@string/zoom_out"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
 				android:id="@+id/cameracontrolButtonFar"/>
 
 		</TableRow>
@@ -41,10 +45,12 @@
 			android:gravity="center">
 
 			<Button
-				android:layout_width="50dp"
-				android:layout_height="50dp"
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
 				android:background="@drawable/circle_button_seletor"
-				android:text="切换"
+				android:text="@string/switch_function"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
 				android:id="@+id/cameracontrolButtonSwitch"/>
 
 		</TableRow>
@@ -55,21 +61,25 @@
 			android:gravity="center">
 
 			<Button
-				android:layout_width="50dp"
-				android:layout_height="50dp"
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
 				android:background="@drawable/rectangle_button_seletor"
-				android:text="倍大"
+				android:text="@string/large"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
 				android:id="@+id/cameracontrolButtonLarge"/>
 
 			<View
-				android:layout_width="35dp"
+				android:layout_width="@dimen/camera_line_size"
 				android:layout_height="match_parent"/>
 
 			<Button
-				android:layout_width="50dp"
-				android:layout_height="50dp"
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
 				android:background="@drawable/rectangle_button_seletor"
-				android:text="倍小"
+				android:text="@string/small"
+				android:textSize="@dimen/camera_text_size"
+				android:textColor="@color/colorCircleButtonText"
 				android:id="@+id/cameracontrolButtonSmall"/>
 
 		</TableRow>

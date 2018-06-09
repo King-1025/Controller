@@ -3,28 +3,47 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
+	android:orientation="horizontal"
 	android:gravity="center">
 
-	<Button
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="控制"
-		android:id="@+id/activity_main_control"/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/main_bg"
+		android:gravity="center">
+		<Button
+			android:layout_height="@dimen/main_button_size"
+			android:layout_width="@dimen/main_button_size"
+			android:text="@string/control"
+			android:textColor="@color/colorCircleButtonText"
+			android:background="@drawable/circle_button_seletor"
+			android:id="@+id/activity_main_control"/>
+		<View
+			android:layout_width="@dimen/main_line_size"
+			android:layout_height="match_parent"/>
 
-	<Button
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="设置"
-		android:id="@+id/activity_main_setting"
-		android:visibility="visible"/>
+		<Button
+			android:layout_height="@dimen/main_button_size"
+			android:layout_width="@dimen/main_button_size"
+			android:text="@string/setting"
+			android:textColor="@color/colorCircleButtonText"
+			android:background="@drawable/circle_button_seletor"
+			android:id="@+id/activity_main_setting"
+			android:visibility="visible"/>
 
-	<Button
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="关于"
-		android:id="@+id/activity_main_about"
-		android:visibility="visible"/>
+		<View
+			android:layout_width="@dimen/main_line_size"
+			android:layout_height="match_parent"/>
+
+		<Button
+			android:layout_height="@dimen/main_button_size"
+			android:layout_width="@dimen/main_button_size"
+			android:text="@string/about"
+			android:textColor="@color/colorCircleButtonText"
+			android:background="@drawable/circle_button_seletor"
+			android:id="@+id/activity_main_about"
+			android:visibility="visible"/>
+	</LinearLayout>
 
 </LinearLayout>
 

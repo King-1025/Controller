@@ -2,10 +2,100 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-    
-	<Button
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="关于页面-&gt;返回"/>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/title_bar_height"
+		android:orientation="horizontal"
+		android:visibility="visible"
+		android:padding="1dp"
+		android:gravity="center_vertical">
+
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:layout_centerHorizontal="true">
+
+			<TextView
+				android:id="@+id/activityaboutTextViewTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@android:color/transparent"
+				android:textColor="@color/colorTextBase"
+				android:text="@string/about_title" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<Button
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
+				android:background="@drawable/circle_button_seletor"
+				android:text="@string/star"
+				android:padding="2dp"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/activityaboutButtonF0"/>
+
+			<View
+				android:layout_width="@dimen/default_line_size"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
+				android:background="@drawable/circle_button_seletor"
+				android:text="@string/share"
+				android:padding="2dp"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/activityaboutButtonF1"/>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_height="@dimen/circle_size"
+				android:layout_width="@dimen/circle_size"
+				android:background="@drawable/circle_button_seletor"
+				android:text="@string/back"
+				android:padding="2dp"
+				android:textSize="@dimen/circle_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/activityaboutButtonBack"/>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/default_line_size"
+		android:background="@color/colorLineBlack" />
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<TextView
+			android:id="@+id/info"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textColor="@color/colorTextBase"
+			android:text="@string/about_info" />
+
+	</LinearLayout>
 	
 </LinearLayout>

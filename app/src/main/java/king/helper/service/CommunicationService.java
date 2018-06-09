@@ -11,92 +11,59 @@ import king.helper.*;
 
 public class CommunicationService extends BasedService implements OnConnectionListener
 {
-	private Handler mHandler;
 	private Handler activityHandler;
-	private final static String TAG="CommunicationService";
+	private ServerManager sm;
 	private ConnectionManager connectionManager;
 	private Sender sender;
 	private Receiver receiver;
-	
-	public final static int REQUEST_SEND_INSTRUCTION=0xA00;
-	public final static int REQUEST_POWER=0xA01;
-	public final static int RESPONSE_POWER=0xB00;
-	public final static int RESPONSE_INSTRUCTION_STATUS=0xB01;
-	
-	
-	private ServerManager sm;
+	private final static String TAG="CommunicationService";
 	@Override
 	public void onCreate()
 	{
-		// TODO: Implement this method
 		super.onCreate();
-		
-		mHandler=new Handler(this.getMainLooper()){
 
-			@Override
-			public void handleMessage(Message msg)
-			{
-				// TODO: Implement this method
-				switch(msg.what){
-					case BasedService.SERVICE_STATUS_OK:
-						activityHandler=(Handler) msg.obj;
-						Message tempMsg=mHandler.obtainMessage();
-						tempMsg.what=ControlActivity.CONTROL_STATUS_OK;
-						tempMsg.obj=mHandler;
-						activityHandler.sendMessage(tempMsg);
-						Log.d(TAG,"serviceHandler is ok！");
-						break;
-						case REQUEST_SEND_INSTRUCTION:
-						    Instruction ins=(Instruction)msg.obj;
-							sender.send(ins);
-							break;
-						case REQUEST_POWER:
-							Message message=activityHandler.obtainMessage();
-							message.what=RESPONSE_POWER;
-							message.arg1=receiver.getPowerValue();
-							activityHandler.sendMessage(message);
-							break;
-				}
-			}
-
-		};
-		
-	    if(MyApplication.IS_START_TEST_SERVER){
-			sm=new ServerManager(this,8888);
-			sm.start();
-		}
-		
 		connectionManager=new ConnectionManager(this);
+		connectionManager.setOnConnectionListener(this);
+
 		sender=new Sender(this,connectionManager);
 		receiver=new Receiver(this,connectionManager);
-		
-		connectionManager.setOnConnectionListener(this);
-		
-		if(MyApplication.IS_START_TEST_SERVER){
-			connectionManager.bulid("0.0.0.0","8888");
-		}else{
-			connectionManager.bulid(MyApplication.HOST,MyApplication.PORT);
-		}
-
 	}
 
+
+	public void setActivityHandler(Handler activityHandler)
+	{
+		this.activityHandler = activityHandler;
+	}
+	
+	public void buildConnection(){
+	    if(connectionManager!=null){
+		   if(!connectionManager.isHasConnection()){
+			   if(MyApplication.IS_START_TEST_SERVER){
+				   connectionManager.bulid("0.0.0.0",MyApplication.PORT);
+			   }else{
+				   connectionManager.bulid(MyApplication.HOST,MyApplication.PORT);
+			   }
+		   }
+	    }
+	}
+	
 	@Override
 	public IBinder onBind(Intent p1)
 	{
-		// TODO: Implement this method
-		connectionManager.startDataReceived(1000);
-		if(connectionManager.isHasConnection()){
-			mHandler.sendEmptyMessageDelayed(REQUEST_POWER,1000);
+		if(MyApplication.IS_START_TEST_SERVER){
+			sm=new ServerManager(this,Integer.valueOf(MyApplication.PORT));
+			sm.start();
 		}
-		return new Messenger(mHandler).getBinder();
+		receiver.start();
+		sender.start();
+		return new Brige(this);
 	}
 
 	@Override
 	public boolean onUnbind(Intent intent)
 	{
-		// TODO: Implement this method
-		mHandler.removeMessages(RESPONSE_POWER);
-		connectionManager.pauseDataReceived();
+		receiver.stop();
+		sender.stop();
 		return super.onUnbind(intent);
 	}
 	
@@ -105,9 +72,9 @@ public class CommunicationService extends BasedService implements OnConnectionLi
 	{
 		// TODO: Implement this method
 		super.onDestroy();
+		receiver.release();
 		sender.release();
 		connectionManager.release();
-		
 		if(MyApplication.IS_START_TEST_SERVER){
 			sm.stop();
 		}
@@ -116,34 +83,58 @@ public class CommunicationService extends BasedService implements OnConnectionLi
 	@Override
 	public void onConnect()
 	{
-		// TODO: Implement this method
+		if(activityHandler!=null){
+			activityHandler.sendEmptyMessage(ControlActivity.FLAG_CONNECTION_DOING);
+		}
 	}
 
 	@Override
 	public void onReconnect()
 	{
-		// TODO: Implement this method
+		if(activityHandler!=null){
+			activityHandler.sendEmptyMessage(ControlActivity.FLAG_CONNECTION_RECONNECT);
+		}
 	}
 
 	@Override
 	public void onClose()
 	{
-		// TODO: Implement this method
+		if(activityHandler!=null){
+			activityHandler.sendEmptyMessage(ControlActivity.FLAG_CONNECTION_CLOSE);
+		}
 	}
 
 	@Override
 	public void onSuccess()
 	{
-		// TODO: Implement this method
-		connectionManager.startDataReceived(0);
-		mHandler.sendEmptyMessageDelayed(REQUEST_POWER,1000);
+		receiver.start();
+		sender.start();
+		activityHandler.sendEmptyMessage(ControlActivity.FLAG__CONNECTION_SUCCESS);
 	}
 
 	@Override
 	public void onFaild(String error)
 	{
 		// TODO: Implement this method
+		activityHandler.sendEmptyMessage(ControlActivity.FLAG_CONNECTION_FAILD);
 		Log.e(TAG,error);
 	}
 	
+	public int getPower(){
+		return receiver.getPowerValue();
+	}
+
+	public void directiy(Instruction instruction){
+		if(instruction!=null){
+			sender.send(instruction);
+		}
+	}
+
+	public void pause(){
+		receiver.stop();
+		sender.stop();
+		if(MyApplication.IS_START_TEST_SERVER){
+			sm.stop();
+		}
+	}
 }

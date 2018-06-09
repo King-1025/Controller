@@ -1,5 +1,6 @@
 package king.helper.manager;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -41,18 +42,14 @@ public class ConnectionManager
 	private boolean isStopReceive=false;
 	private boolean isReconnection=false;
 	private boolean isReceiving=false;
-	private long RECONNECTION_DELAYED_TIME=10000;
-	private int SEND_BUFFER_SIZE=8;
+	private long RECONNECTION_DELAYED_TIME=5000;
+	private int SEND_BUFFER_SIZE=1024;
 	private int RECEIVE_BUFFER_SIZE=5;
 	private int RECEIVED_INTERNAL_TIME=1000;
 	private OnConnectionListener onConnectionListener;
     private OnTransmissionListener onTransmissionListener;
 	
 	private final static int ESTABLISH_CONNECTION=0x00;
-	/*
-	private final static int TRANSMISSION_DATA_WRITE=0x01;
-	private final static int TRANSMISSION_DATA_FLUSH=0x02;
-	*/
 	private final static int TRANSMISSION_DATA_RECEIVE=0x03;
 	private final static int RELEASE_CONNECTION=0x04;
 	
@@ -66,17 +63,10 @@ public class ConnectionManager
         mhandler=new Handler(handlerThread.getLooper()){
             @Override
             public void handleMessage(Message msg) {
-                super.handleMessage(msg);
                 switch(msg.what){
                     case ESTABLISH_CONNECTION:
 						establish();
                         break;
-					/*case TRANSMISSION_DATA_WRITE:
-						write((byte[])msg.obj);
-						break;
-					case TRANSMISSION_DATA_FLUSH:
-						flush();
-						break;*/
 					case TRANSMISSION_DATA_RECEIVE:
 					    receive(RECEIVED_INTERNAL_TIME);
 						break;
@@ -118,21 +108,20 @@ public class ConnectionManager
 		return outputStream;
 	}
 	
-    public ConnectionManager bulid(String host,String port){
+    public void bulid(String host,String port){
         if(host==null||port==null){
             Toast.makeText(context,"目标无效！",Toast.LENGTH_SHORT).show();
         }else {
-            if(hasConnection)
+            if(!hasConnection)
             {
-                Log.d(TAG,"bulid():连接已经建立,请先关闭当前连接！");
+				this.host=host;
+				this.port=Integer.valueOf(port);
+				mhandler.sendEmptyMessage(ESTABLISH_CONNECTION);
+				Log.d(TAG,"bulid():开始建立连接...");
             }else {
-                this.host=host;
-                this.port=Integer.valueOf(port);
-                mhandler.sendEmptyMessage(ESTABLISH_CONNECTION);
-                Log.d(TAG,"bulid():开始建立连接...");
+				Log.d(TAG,"bulid():连接已经建立,请先关闭当前连接！");
             }
         }
-        return this;
     }
 	
 	public void startDataReceived(long delayTime){
@@ -141,7 +130,7 @@ public class ConnectionManager
 				isStopReceive=false;
 				mhandler.sendEmptyMessageDelayed(TRANSMISSION_DATA_RECEIVE,delayTime);
 			}else{
-				Log.d(TAG,"startDataReceived()->inputStream:"+inputStream);
+				Log.d(TAG,"startDataReceived()->inputStream is null.");
 			}
 		}else{
 			Log.d(TAG,"startDataReceived():正在接受数据中...");
@@ -170,15 +159,19 @@ public class ConnectionManager
 		if(onConnectionListener!=null){
 			onConnectionListener.onConnect();
 		}
+
 		socket=openSocket(host,port,SEND_BUFFER_SIZE,RECEIVE_BUFFER_SIZE);
+
 		if(socket!=null){
 			try
 			{
 				inputStream = socket.getInputStream();
 				outputStream = socket.getOutputStream();
+
 				if(onConnectionListener!=null){
 					onConnectionListener.onSuccess();
 				}
+
 				if(isReconnection){
 					startDataReceived(1000);
 					isReconnection=false;
@@ -188,52 +181,37 @@ public class ConnectionManager
 					Log.d(TAG,"连接建立成功！");
 					Toast.makeText(context.getApplicationContext(),"连接成功！", Toast.LENGTH_SHORT).show();
 				}
+
 				hasConnection=true;
 			}
 			catch (IOException e)
 			{
+				e.printStackTrace();
+
 				if(onConnectionListener!=null){
 					onConnectionListener.onFaild("数据流获取失败!");
 				}
-				e.printStackTrace();
-			    closeSocket(socket);
+				closeSocket(socket);
+				hasConnection=false;
 				mhandler.removeMessages(ESTABLISH_CONNECTION);
 				mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,2*RECONNECTION_DELAYED_TIME);
 				Log.d(TAG,"handleMessage():数据流获取失败,正在尝试...");
 				Toast.makeText(context.getApplicationContext(),"数据流获取失败,正在尝试...", Toast.LENGTH_SHORT).show();
 			}
 		}else{
-			if(onConnectionListener!=null){
-				onConnectionListener.onFaild("Socket获取失败!");}
 			hasConnection=false;
+			if(onConnectionListener!=null){
+				onConnectionListener.onFaild("Socket获取失败!");
+			}
 			mhandler.removeMessages(ESTABLISH_CONNECTION);
-			mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,2*RECONNECTION_DELAYED_TIME);
+			mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,RECONNECTION_DELAYED_TIME);
 			Log.d(TAG,"handleMessage():Socket获取失败,正在尝试...");
 			Toast.makeText(context.getApplicationContext(),"Socket获取失败,正在尝试...", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
-	/*
-	private void flush(){
-		try{outputStream.flush();}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			reconnection();
-		}
-	}
-	
-	private void write(byte []data){
-		try{ outputStream.write(data);}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		    reconnection();
-		}
-	}
-	*/
-	
-    private void destroy(){
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	private void destroy(){
 		if(onConnectionListener!=null){
 			onConnectionListener.onClose();
 		}
@@ -247,12 +225,13 @@ public class ConnectionManager
     }
 	
 	private void reconnection(){
+		pauseDataReceived();
+		closeStream();
+		closeSocket(socket);
+		isReconnection=true;
 		if(onConnectionListener!=null){
 			onConnectionListener.onReconnect();
 		}
-		isReconnection=true;
-		pauseDataReceived();
-		closeStream();
 		mhandler.removeMessages(ESTABLISH_CONNECTION);
 		mhandler.sendEmptyMessageDelayed(ESTABLISH_CONNECTION,RECONNECTION_DELAYED_TIME);
 	}
@@ -337,8 +316,6 @@ public class ConnectionManager
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            socket=null;
         }
     }
 }

@@ -30,4 +30,22 @@ public class Type
 	public final static int INSTRUCTION_WALKING_LED_WORD=0x104;
     //混合
 	public final static int INSTRUCTION_WALKING_FUSION=0x105;
+
+						/*截图*/
+	public final static int FLAG_SCREENSHOT_SAVE_AS_JPEG=0x200;
+	public final static int FLAG_SCREENSHOT_SAVE_AS_PNG=0x201;
+	public final static int FLAG_SCREENSHOT_SAVE_AS_WEBP=0x202;
+
+						/*视频*/
+	public final static int FLAG_VIDEO_QUALITY_FLUENT=0x300;
+	public final static int FLAG_VIDEO_QUALITY_STANDAED=0x301;
+	public final static int FLAG_VIDEO_QUALITY_HIGH=0x302;
+
+						/*设置*/
+	public final static String KEY_HOST="key_host";
+	public final static String KEY_PORT="key_port";
+	public final static String KEY_VIDEO_URL="key_video_url";
+	public final static String KEY_PICTURE_SAVE_TYPE="key_picture_save_type";
+	public final static String KEY_VIDEO_QUALITY="key_video_quality";
+	public final static String KEY_PICTURE_SAVE_PATH="key_picture_save_path";
 }

@@ -9,11 +9,11 @@ import king.helper.utils.*;
 
 public class Receiver implements OnTransmissionListener
 {
-
 	private Context context;
 	ConnectionManager connectionManager;
     private byte[]data;
 	private final static String TAG="Receiver";
+
 	public Receiver(Context context,ConnectionManager connectionManager){
 		this.context=context;
 		this.connectionManager=connectionManager;
@@ -39,9 +39,8 @@ public class Receiver implements OnTransmissionListener
 	@Override
 	public void receive(byte[] data)
 	{
-		// TODO: Implement this method
 		this.data=data;
-		Log.i(TAG,"receive:"+Format.obtainString(data)+" power:"+getPowerValue());
+		//Log.i(TAG,"receive:"+Format.obtainString(data)+" power:"+getPowerValue());
 	}
 	
 	public int getPowerValue(){
@@ -63,7 +62,22 @@ public class Receiver implements OnTransmissionListener
 		}
 		return -1;
 	}
-	
-	
-	
+
+	public void start(){
+		if(connectionManager!=null){
+			connectionManager.startDataReceived(0);
+		}
+	}
+
+	public void stop(){
+		if(connectionManager!=null){
+			connectionManager.pauseDataReceived();
+		}
+	}
+
+	public void release(){
+		stop();
+		connectionManager=null;
+		data=null;
+	}
 }
