@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TableLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="@string/zoom_in"
+				android:textSize="@dimen/camera_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/cameracontrolButtonNear"/>
+
+			<View
+				android:layout_width="@dimen/camera_line_size"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="@string/zoom_out"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
+				android:id="@+id/cameracontrolButtonFar"/>
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
+				android:background="@drawable/circle_button_seletor"
+				android:text="@string/switch_function"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
+				android:id="@+id/cameracontrolButtonSwitch"/>
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<Button
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="@string/large"
+				android:textColor="@color/colorCircleButtonText"
+				android:textSize="@dimen/camera_text_size"
+				android:id="@+id/cameracontrolButtonLarge"/>
+
+			<View
+				android:layout_width="@dimen/camera_line_size"
+				android:layout_height="match_parent"/>
+
+			<Button
+				android:layout_width="@dimen/camera_control_button_size"
+				android:layout_height="@dimen/camera_control_button_size"
+				android:background="@drawable/rectangle_button_seletor"
+				android:text="@string/small"
+				android:textSize="@dimen/camera_text_size"
+				android:textColor="@color/colorCircleButtonText"
+				android:id="@+id/cameracontrolButtonSmall"/>
+
+		</TableRow>
+
+	</TableLayout>
+
+</LinearLayout>
+

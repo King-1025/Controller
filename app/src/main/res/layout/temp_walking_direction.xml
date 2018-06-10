@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="180dp"
+        android:layout_height="180dp">
+
+        <ImageButton
+            android:id="@+id/tempSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="12dp"
+            android:background="@drawable/temp_circle_button_seletor"
+            android:text="kfd"/>
+
+        <ImageButton
+            android:id="@+id/tempTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tempSwitch"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/temp_button_direction_vertical_seletor"/>
+
+        <ImageButton
+            android:id="@+id/tempRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tempLeft"
+            android:layout_toEndOf="@+id/tempSwitch"
+            android:layout_toRightOf="@+id/tempSwitch"
+            android:background="@drawable/temp_button_seletor"/>
+
+        <ImageButton
+            android:id="@+id/tempLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tempSwitch"
+            android:layout_toStartOf="@+id/tempSwitch"
+            android:background="@drawable/temp_button_seletor"/>
+
+        <ImageButton
+            android:id="@+id/tempBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tempTop"
+            android:layout_alignStart="@+id/tempTop"
+            android:layout_below="@+id/tempSwitch"
+            android:background="@drawable/temp_button_direction_vertical_seletor"/>
+
+    </RelativeLayout>
+</LinearLayout>

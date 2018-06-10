@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLineBlack"
+        android:padding="2dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:padding="5dp">
+            <TextView
+                android:text="视频URL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLineBlack"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:text="URL:"
+                    android:id="@+id/video_url_label"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/et_video_url"
+                    android:textSize="15sp"
+                    android:hint="rtsp://..."
+                    android:gravity="bottom"
+                    android:layout_toRightOf="@id/video_url_label"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

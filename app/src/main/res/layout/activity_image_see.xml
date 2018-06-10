@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:padding="1dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="@dimen/default_line_size"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/default_show_text_size"
+                android:textColor="@color/colorTextBase"
+                android:text="@string/image_count" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+
+            <Button
+                android:layout_height="@dimen/circle_size"
+                android:layout_width="@dimen/circle_size"
+                android:background="@drawable/circle_button_seletor"
+                android:text="@string/delete"
+                android:padding="2dp"
+                android:textSize="@dimen/circle_text_size"
+                android:textColor="@color/colorCircleButtonText"
+                android:id="@+id/activityimageseeButtonDeleteImage"/>
+
+            <View
+                android:layout_width="@dimen/default_line_size"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:layout_height="@dimen/circle_size"
+                android:layout_width="@dimen/circle_size"
+                android:background="@drawable/circle_button_seletor"
+                android:text="@string/back"
+                android:padding="2dp"
+                android:textSize="@dimen/circle_text_size"
+                android:textColor="@color/colorCircleButtonText"
+                android:id="@+id/activityimageseeButtonBack"/>
+
+            <View
+                android:layout_width="@dimen/default_line_size"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="1dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#555"
+            android:layout_weight="1">
+            <ImageSwitcher
+                android:id="@+id/image_switcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </ImageSwitcher>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="8">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/image_info"
+                android:textSize="@dimen/image_info_text_size"
+                android:textColor="@color/colorTextBase"
+                android:id="@+id/image_info"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:paddingBottom="1dp"
+        android:paddingTop="2dp"
+        android:layout_marginBottom="1dp">
+        <Gallery
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_dark">
+        </Gallery>
+    </LinearLayout>
+</LinearLayout>

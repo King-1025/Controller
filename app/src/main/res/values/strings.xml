@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">千千控制</string>
+    <string name="app_info">测试版</string>
+	<string name="about_title">关于</string>
+	<string name="star">点赞</string>
+	<string name="share">分享</string>
+	<string name="back">返回</string>
+	<string name="about_info">这是一个关于的信息</string>
+	<string name="power_show">电量显示</string>
+	<string name="control_title">控制界面</string>
+	<string name="screenshot">截图</string>
+	<string name="hide">隐藏</string>
+	<string name="exit">离开</string>
+	<string name="show_info_0">信息0</string>
+	<string name="show_info_1">信息1</string>
+	<string name="image_count">0/0</string>
+	<string name="delete">删除</string>
+	<string name="image_info">图片信息</string>
+	<string name="control">控制</string>
+	<string name="setting">设置</string>
+	<string name="about">关于</string>
+	<string name="setting_title">设置标题</string>
+	<string name="reset">重置</string>
+	<string name="save">保存</string>
+	<string name="nothing">无</string>
+	<string name="voice">语音</string>
+	<string name="open">开</string>
+	<string name="alarm_light">警灯</string>
+	<string name="volume_default_value">25</string>
+	<string name="volume">音量</string>
+	<string name="word">字幕</string>
+	<string name="light">照明</string>
+	<string name="zoom_in">聚近</string>
+	<string name="zoom_out">聚远</string>
+	<string name="switch_function">切换</string>
+	<string name="large">倍大</string>
+	<string name="small">倍小</string>
+	<string name="volume_seekbar_show">音量值:15</string>
+
+	<string-array name="setting_menu">
+		<item>基本</item>
+		<item>视频</item>
+		<item>查看截图</item>
+		<item>其它</item>
+	</string-array>
+
+	<string-array name="voice">
+		<item>关闭</item>
+		<item>1.雾天注意</item><!--0x0E 10-->
+		<item>2.注意行人</item>
+		<item>3.路面结冰</item>
+		<item>4.保持车距</item>
+		<item>5.隧道标志</item>
+		<item>6.连续弯道</item>
+		<item>7.T型路口</item>
+		<item>8.环形路口</item>
+		<item>9.十字路口</item>
+		<item>10.向左转弯</item>
+		<item>11.向右转弯</item>
+		<item>12.禁止直行</item>
+		<item>13.禁止掉头</item>
+		<item>14.限宽3米</item>
+		<item>15.限高3.5米</item>
+		<item>16.限速40</item>
+		<item>17.禁止鸣笛</item>
+		<item>18.禁止机动车驶入</item>
+		<item>19.禁止行人通行</item>
+	</string-array>
+	
+	<string-array name="LEDWord">
+		<item>关闭</item>
+		<item>1.队员简介</item>
+		<item>2.雾天</item><!--0x02 2-->
+		<item>3.注意行人</item>
+		<item>4.路面结冰</item>
+		<item>5.保持车距</item>
+		<item>6.隧道标志</item>
+		<item>7.连续弯道</item>
+		<item>8.T型路口</item>
+		<item>9.环形交叉口</item>
+		<item>10.十字路口</item>
+		<item>11.向右急转弯</item>
+		<item>12.向左急转弯</item>
+		<item>13.禁止直行</item>
+		<item>14.禁止掉头</item>
+		<item>15.限宽3米</item>
+		<item>16.限高3.5米</item>
+		<item>17.限速40</item>
+		<item>18.禁止鸣笛</item>
+		<item>19.禁止机动车驶入</item>
+		<item>20.禁止行人通行</item>
+	</string-array>
+	<!--
+	10、雾天
+	11、注意行人
+	12、路面结冰
+	13、保持车距
+	14、隧道标志
+	15、连续弯路
+	16、T型路口
+	17、环形路口
+	18、十字路口
+	19、向右转弯
+	20、向左转弯
+	21、禁止直行
+	22、禁止掉头
+	23、限制车辆宽度3m
+	24、限高3.5m
+	25、限速40m
+	26、禁止鸣笛
+	27、禁止机动车进入
+	28、禁止行人通过
+	29、易滑路段
+	30、前方施工
+	-->
+</resources>

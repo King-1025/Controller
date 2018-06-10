@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        default_signing {
+            keyAlias 'king'
+            keyPassword '102510'
+            storePassword '102510'
+        }
+    }
+    compileSdkVersion 19
+    buildToolsVersion '27.0.1'
+    defaultConfig {
+        applicationId "king.helper"
+        minSdkVersion 15
+        targetSdkVersion 19
+        versionCode 1
+        versionName '1.0.0'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled true
+            proguardFile 'E:/Android/Workplace/Project/Controller/app/proguard-rules.pro'
+            applicationIdSuffix 'release'
+            zipAlignEnabled true
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+            minifyEnabled false
+            pseudoLocalesEnabled false
+            applicationIdSuffix 'debug'
+            zipAlignEnabled true
+        }
+    }
+    productFlavors {
+    }
+    dexOptions {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':vitamio')
+}
