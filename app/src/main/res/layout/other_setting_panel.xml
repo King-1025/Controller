@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="5dp">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="是否开启服务？"
+			android:textSize="@dimen/default_show_text_size"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"/>
+
+		<Switch
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/othersettingpanelSwitchService"
+			android:thumb="@drawable/thumb"
+			android:track="@drawable/track"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="是否启用测试服务器？"
+			android:textSize="@dimen/default_show_text_size"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"/>
+
+		<Switch
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/othersettingpanelSwitchTestServer"
+			android:thumb="@drawable/thumb"
+			android:track="@drawable/track"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="是否接受数据？(需要启用测试服务器)"
+			android:textSize="@dimen/default_show_text_size"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"/>
+
+		<Switch
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/othersettingpanelSwitchReceive"
+			android:thumb="@drawable/thumb"
+			android:track="@drawable/track"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="是否预览视频？"
+			android:textSize="@dimen/default_show_text_size"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"/>
+
+		<Switch
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/othersettingpanelSwitchVideo"
+			android:thumb="@drawable/thumb"
+			android:track="@drawable/track"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="match_parent"/>
+
+</LinearLayout>
+

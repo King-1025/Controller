@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorPrimary_1</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_1</color>
+    <color name="colorAccent">#25dade</color>
+    <color name="colorWhite">#fbfcfb</color>
+    <color name="colorTextBase">#0d0d0d</color>
+    <color name="colorLinePrimary">#1abf95</color>
+    <color name="colorLineBlack">#e6a7a6a6</color>
+    <color name="colorCircleButtonText">#f6f7ff</color>
+    <color name="colorShowText0">#df4d3a</color>
+    <color name="colorShowText1">#2ddaaf</color>
+    <color name="colorSurfaceBackground">#5FFFFFFF</color>
+    <color name="colorFlashBackground">#0EFFFFFF</color>
+    <color name="colorFlashText">#DFFFFFFF</color>
+    <color name="temp_bt">#FFFFFFFF</color>
+	<color name="colorCircleRodStart">#01000000</color>
+	<color name="colorCircleRodCenter">#1E000000</color>
+	<color name="colorCircleRodEnd">#01000000</color>
+	<color name="colorButtonNormal">@color/colorPrimaryDark</color>
+	<color name="colorButtonPress">#1E000000</color>
+    <!--主色调-->
+    <color name="colorPrimary_0">#66ecca</color>
+    <color name="colorPrimaryDark_0">#2ddeb1</color>
+
+    <color name="colorPrimary_1">#414141</color>
+    <color name="colorPrimaryDark_1">#262626</color>
+</resources>

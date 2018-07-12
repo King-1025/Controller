@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:gravity="center">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="@string/volume_seekbar_show"
+		android:layout_marginBottom="10dp"
+		android:id="@+id/volumeresetTextViewShow"
+		android:textColor="@color/colorTextBase"
+		android:textSize="@dimen/volume_show_text_size"/>
+
+	<SeekBar
+		android:layout_height="@dimen/volume_seekbar_height"
+		android:max="100"
+		android:layout_width="match_parent"
+		android:progress="50"
+		android:id="@+id/volumeresetSeekBar"/>
+
+</LinearLayout>
+
