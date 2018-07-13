@@ -25,6 +25,7 @@
 				android:text="@string/target_title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:textColor="@color/colorTextBase"
 				android:gravity="center"/>
 
 			<View
@@ -41,6 +42,7 @@
 					android:id="@+id/ip_label"
 					android:layout_width="35dp"
 					android:layout_height="match_parent"
+					android:textColor="@color/colorTextBase"
 					android:gravity="center"/>
 
 				<EditText
@@ -48,6 +50,7 @@
 					android:textSize="12sp"
 					android:text="192.168.1.1"
 					android:layout_toRightOf="@id/ip_label"
+					android:textColor="@color/colorTextBase"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"/>
 
@@ -61,6 +64,7 @@
 					android:text="@string/port"
 					android:id="@+id/port_label"
 					android:layout_width="35dp"
+					android:textColor="@color/colorTextBase"
 					android:layout_height="match_parent"
 					android:gravity="center"/>
 
@@ -68,6 +72,7 @@
 					android:id="@+id/et_port"
 					android:textSize="12sp"
 					android:text="2001"
+					android:textColor="@color/colorTextBase"
 					android:layout_toRightOf="@id/port_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"/>

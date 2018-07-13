@@ -47,6 +47,7 @@
 	<string name="test_server_status">测试服务器状态:</string>
 	<string name="video_status">视频状态:</string>
 	<string name="receive_status">接受数据状态:</string>
+	<string name="speed_type_status">档位状态:</string>
 	<string name="speed_type">档位</string>
 	<string name="high">高</string>
 	<string name="middle">中</string>
@@ -55,10 +56,18 @@
 		<item>状态</item>
 		<item>基本</item>
 		<item>视频</item>
+		<item>自由档位</item>
 		<item>查看截图</item>
 		<item>其它</item>
 	</string-array>
 
+	<string-array name="speedType">
+		<item>低档位</item>
+		<item>中档位</item>
+		<item>高档位</item>
+		<item>自由档位</item>
+	</string-array>
+	
 	<string-array name="voice">
 		<item>关闭</item>
 		<item>1.雾天注意</item><!--0x0E 10-->

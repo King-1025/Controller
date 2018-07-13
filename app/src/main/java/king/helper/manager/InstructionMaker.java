@@ -7,9 +7,11 @@ import king.helper.model.*;
 import king.helper.*;
 import java.util.*;
 import android.util.*;
+import king.helper.utils.*;
 
-public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener,OnTouchListener
+public class InstructionMaker implements OnUIListener,OnTouchListener,OnCircularRodDirectionListener
 {
+
 	private Context context;
 	private OnInstructionMakeListener onInstructionMakeListener;
 
@@ -37,22 +39,26 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 
 	public final static int MAX_VOLUME_VALUE=0x1E;
 	public final static int DEFAULT_VALUME_VALUE=0x0F;
-	public  final static int MIN_VOLUME_VALUE=0x01;
+	public final static int MIN_VOLUME_VALUE=0x01;
 
 	//行走控制中心量
-	private final static double WALKING_DIRECTION_MIDDLE=127.5;
+	public final static double WALKING_DIRECTION_MIDDLE=127.5;
 
 	//行走控制偏移
 	private final static double WALKING_DIRECTION_OFFSET=2*9;
 
 	private final static int FLAG_MAKE_WALKING_INSTRUCTION=0x00;
 	private final static int FLAG_MAKE_CAMERA_INSTRUCTION=0x01;
-
+	
+	private Speed speed;
+	
 	private final static String TAG="InstructionMaker";
-
+    
 	public InstructionMaker(Context context)
 	{
 		this.context = context;
+		
+		OnSpeedStatusChange(Save.get(Type.KEY_SPEED_TYPE,MyApplication.SPEED_TYPE));
 	}
 
 	public void setOnInstructionMakeListener(OnInstructionMakeListener onInstructionMakeListener)
@@ -61,9 +67,131 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 	}
 
 	@Override
+	public void onDirectionChange(View v, CircularRodAction action)
+	{
+		
+		switch(action.getDirection()){
+			case CircularRodAction.DIRECTION_EAST:
+				walkingDirectionDescription="向右运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getAxialX());
+				
+				upAndDownCommand=(byte)WALKING_DIRECTION_MIDDLE;
+				
+				break;
+			case CircularRodAction.DIRECTION_SOUTH_EAST:
+				walkingDirectionDescription="向右后方运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueX());
+				
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueY());
+				
+				break;
+		    case CircularRodAction.DIRECTION_SOUTH:
+				walkingDirectionDescription="向后方运动";
+				
+				leftAndRightCommand=(byte)WALKING_DIRECTION_MIDDLE;
+
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getAxialY());
+				
+				break;
+			case CircularRodAction.DIRECTION_SOUTH_WEST:
+				walkingDirectionDescription="向左后方运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueX());
+
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueY());
+				
+				break;
+			case CircularRodAction.DIRECTION_WEST:
+				walkingDirectionDescription="向左运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getAxialX());
+
+				upAndDownCommand=(byte)WALKING_DIRECTION_MIDDLE;
+				
+				break;
+			case CircularRodAction.DIRECTION_NORTH_WEST:
+				walkingDirectionDescription="向左前方运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueX());
+
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueY());
+				
+				break;
+			case CircularRodAction.DIRECTION_NORTH:
+				walkingDirectionDescription="向前方运动";
+				
+				leftAndRightCommand=(byte)WALKING_DIRECTION_MIDDLE;
+
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getAxialY());
+				
+				break;
+			case CircularRodAction.DIRECTION_NORTH_EAST:
+				walkingDirectionDescription="向右前方运动";
+				
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueX());
+
+				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueY());
+				
+				break;
+			case CircularRodAction.DIRECTION_CENTER:
+				walkingDirectionDescription="机身停止运动";
+				
+				leftAndRightCommand=(byte) WALKING_DIRECTION_MIDDLE;
+				
+				upAndDownCommand=(byte) WALKING_DIRECTION_MIDDLE;
+				
+				break;
+		}
+		
+		make(FLAG_MAKE_WALKING_INSTRUCTION);
+		
+	}
+	
+	@Override
+	public void OnSpeedStatusChange(int type)
+	{
+		if(speed==null){
+			speed=new Speed();
+		}
+		switch(type){
+			case Type.FLAG_SPEED_LOW:
+				speed.setAxialX(39);
+				speed.setAxialY(39);
+				speed.setObliqueX(25);
+				speed.setObliqueY(20);
+				break;
+			case Type.FLAG_SPEED_MIDDLE:
+				speed.setAxialX(78);
+				speed.setAxialY(78);
+				speed.setObliqueX(50);
+				speed.setObliqueY(40);
+				break;
+			case Type.FLAG_SPEED_HIGH:
+				speed.setAxialX(117);
+				speed.setAxialY(117);
+				speed.setObliqueX(100);
+				speed.setObliqueY(80);
+				break;
+			case Type.FLAG_SPEED_AUTO:
+				speed.setAxialX(Save.get(Type.KEY_SPEED_AUTO_AXIAL_X,0));
+				speed.setAxialY(Save.get(Type.KEY_SPEED_AUTO_AXIAL_Y,0));
+				speed.setObliqueX(Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_X,0));
+				speed.setObliqueY(Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_Y,0));
+				break;
+			default:
+			    Log.w(TAG,"without speed type:"+type);
+			    break;
+		}
+	}
+	
+	
+	/*
+	@Override
 	public void onCircularRodTouch(View v, double polarAngle, double polarDiameter, double maxPolarDiameter)
 	{
-		                               /*利用相似性和极坐标计算*/
+		                             //利用相似性和极坐标计算
 		//纵向
 		//upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE*(1-(polarDiameter*Math.sin(polarAngle)/maxPolarDiameter)));
 		//横向
@@ -296,12 +424,12 @@ public class InstructionMaker implements OnUIListener,OnCircularRodTouchListener
 
 		make(FLAG_MAKE_WALKING_INSTRUCTION);
 	}
-
-
+   */
+   /*
 	private double absCompareMax(double a,double b){
 		return Math.abs(a)>Math.abs(b) ? Math.abs(a):Math.abs(b);
 	}
-
+   */
 	@Override
 	public void OnLightStatusChange(int flag, boolean isOpen)
 	{

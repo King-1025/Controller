@@ -14,10 +14,11 @@ import king.helper.utils.Save;
 import king.helper.R;
 import android.widget.*;
 import king.helper.model.Type;
+import android.widget.SeekBar.*;
+import king.helper.manager.*;
 
-public class SettingActivity extends BasedActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener
+public class SettingActivity extends BasedActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener,OnSeekBarChangeListener
 {
-
 	private Context contxt;
 	private ListView listView;
 	private Button back;
@@ -30,8 +31,9 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 	private final static int FLAG_SETTING_STATUS=0x00;
 	private final static int FLAG_SETTINTG_BASED=0x01;
 	private final static int FLAG_SETTING_VIDEO=0x02;
-	private final static int FlAG_SETTING_PICTURE=0x03;
-	private final static int FLAG_SETTING_OTHER=0x04;
+	private final static int FLAG_SETTING_SPEED=0x03;
+	private final static int FlAG_SETTING_PICTURE=0x04;
+	private final static int FLAG_SETTING_OTHER=0x05;
 
 	private EditText etIp;
 	private EditText etPort;
@@ -44,16 +46,31 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 	private TextView statusTestServer;
 	private TextView statusVideo;
 	private TextView statusReceive;
+	private TextView statusSpeedType;
 	
 	private Switch swService;
 	private Switch swTestServer;
 	private Switch swReceive;
 	private Switch swVideo;
 	
+	private SeekBar seekBarAxialX;
+	private SeekBar seekBarAxialY;
+	private SeekBar seekBarObliqueX;
+	private SeekBar seekBarObliqueY;
+	
+	private TextView tvAxialX;
+	private TextView tvAxialY;
+	private TextView tvObliqueX;
+	private TextView tvObliqueY;
+	
 	private View statusPanel;
 	private View basedPanel;
 	private View videoPanel;
+	private View speedPanel;
     private View otherPanel;
+	
+	private int ax,ay;
+	private int ox,oy;
 	
 	private final static String TAG="SettingActivity";
 
@@ -87,6 +104,7 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 		statusTestServer=(TextView) findViewById(R.id.statussettingpanelTestServer);
 		statusReceive=(TextView) findViewById(R.id.statussettingpanelReceive);
 		statusVideo=(TextView) findViewById(R.id.statussettingpanelVideo);
+		statusSpeedType=(TextView) findViewById(R.id.statussettingpanelSpeedType);
 		
 		swService=(Switch) findViewById(R.id.othersettingpanelSwitchService);
 		swTestServer=(Switch) findViewById(R.id.othersettingpanelSwitchTestServer);
@@ -101,8 +119,24 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 	    statusPanel=findViewById(R.id.status_panel);
 		basedPanel=findViewById(R.id.base_panel);
 		videoPanel=findViewById(R.id.video_setting_panel);
+		speedPanel=findViewById(R.id.speed_auto_panel);
 		otherPanel=findViewById(R.id.other_setting_panel);
 
+		seekBarAxialX=(SeekBar) findViewById(R.id.speedautopanelSeekBarAxialX);
+		seekBarAxialY=(SeekBar) findViewById(R.id.speedautopanelSeekBarAxialY);
+		seekBarObliqueX=(SeekBar) findViewById(R.id.speedautopanelSeekBarObliqueX);
+		seekBarObliqueY=(SeekBar) findViewById(R.id.speedautopanelSeekBarObliqueY);
+		
+		seekBarAxialX.setOnSeekBarChangeListener(this);
+		seekBarAxialY.setOnSeekBarChangeListener(this);
+		seekBarObliqueX.setOnSeekBarChangeListener(this);
+		seekBarObliqueY.setOnSeekBarChangeListener(this);
+		
+		tvAxialX=(TextView) findViewById(R.id.speedautopanelTextViewAxialX);
+		tvAxialY=(TextView) findViewById(R.id.speedautopanelTextViewAxialY);
+		tvObliqueX=(TextView) findViewById(R.id.speedautopanelTextViewObliqueX);
+		tvObliqueY=(TextView) findViewById(R.id.speedautopanelTextViewObliqueY);
+		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -116,6 +150,9 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 					case FLAG_SETTING_VIDEO:
 						flag=FLAG_SETTING_VIDEO;
 						break;
+					case FLAG_SETTING_SPEED:
+						flag=FLAG_SETTING_SPEED;
+						break;
 					case FlAG_SETTING_PICTURE:
 						skipToActivity(ImageSeeActivity.class,true);
 						return;
@@ -126,6 +163,7 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 				show(flag);
 			}
 		});
+		
 		etIp.setText(Save.getIP());
 		etPort.setText(Save.getPort());
 		etVideoURL.setText(Save.getVideoURL());
@@ -134,6 +172,26 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 		swTestServer.setChecked(Save.getTestServerStatus());
 		swReceive.setChecked(Save.getReceiveStatus());
 		swVideo.setChecked(Save.getVideoStatus());
+		
+		seekBarAxialX.setMax((int)InstructionMaker.WALKING_DIRECTION_MIDDLE);
+		seekBarAxialY.setMax((int)InstructionMaker.WALKING_DIRECTION_MIDDLE);
+		seekBarObliqueX.setMax((int)InstructionMaker.WALKING_DIRECTION_MIDDLE);
+		seekBarObliqueY.setMax((int)InstructionMaker.WALKING_DIRECTION_MIDDLE);
+		
+	    ax=Save.get(Type.KEY_SPEED_AUTO_AXIAL_X,0);
+		ay=Save.get(Type.KEY_SPEED_AUTO_AXIAL_Y,0);
+		ox=Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_X,0);
+	    oy=Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_Y,0);
+		
+		seekBarAxialX.setProgress(ax);
+		seekBarAxialY.setProgress(ay);
+		seekBarObliqueX.setProgress(ox);
+		seekBarObliqueY.setProgress(oy);
+		
+		tvAxialX.setText(String.valueOf(ax));
+		tvAxialY.setText(String.valueOf(ay));
+		tvObliqueX.setText(String.valueOf(ox));
+		tvObliqueY.setText(String.valueOf(oy));
 		
 		flag=FLAG_SETTING_STATUS;
 		show(flag);
@@ -158,55 +216,92 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 	private void show(int flag){
 		switch (flag){
 			case FLAG_SETTING_STATUS:
-				statusIp.setText(Save.getIP());
-				statusPort.setText(Save.getPort());
-				statusVideoURL.setText(Save.getVideoURL());
-				if(Save.getServiceStatus()){
-					statusService.setText("可用");
-				}else{
-					statusService.setText("禁用");
-				}
-				if(Save.getTestServerStatus()){
-					statusTestServer.setText("可用");
-				}else{
-					statusTestServer.setText("禁用");
-				}
-				if(Save.getReceiveStatus()){
-					statusReceive.setText("可用");
-				}else{
-					statusReceive.setText("禁用");
-				}
-				if(Save.getVideoStatus()){
-					statusVideo.setText("可用");
-				}else{
-					statusVideo.setText("禁用");
-				}
+				checkStatus();
 				statusPanel.setVisibility(View.VISIBLE);
 				basedPanel.setVisibility(View.INVISIBLE);
 				videoPanel.setVisibility(View.INVISIBLE);
+				speedPanel.setVisibility(View.INVISIBLE);
 				otherPanel.setVisibility(View.INVISIBLE);
 				break;
 			case FLAG_SETTINTG_BASED:
 				statusPanel.setVisibility(View.INVISIBLE);
 				basedPanel.setVisibility(View.VISIBLE);
 				videoPanel.setVisibility(View.INVISIBLE);
+				speedPanel.setVisibility(View.INVISIBLE);
 				otherPanel.setVisibility(View.INVISIBLE);
 				break;
 			case FLAG_SETTING_VIDEO:
 				statusPanel.setVisibility(View.INVISIBLE);
 				basedPanel.setVisibility(View.INVISIBLE);
 				videoPanel.setVisibility(View.VISIBLE);
+				speedPanel.setVisibility(View.INVISIBLE);
+				otherPanel.setVisibility(View.INVISIBLE);
+				break;
+			case FLAG_SETTING_SPEED:
+				statusPanel.setVisibility(View.INVISIBLE);
+				basedPanel.setVisibility(View.INVISIBLE);
+				videoPanel.setVisibility(View.INVISIBLE);
+				speedPanel.setVisibility(View.VISIBLE);
 				otherPanel.setVisibility(View.INVISIBLE);
 				break;
 			case FLAG_SETTING_OTHER:
 				statusPanel.setVisibility(View.INVISIBLE);
 				basedPanel.setVisibility(View.INVISIBLE);
 				videoPanel.setVisibility(View.INVISIBLE);
+				speedPanel.setVisibility(View.INVISIBLE);
 				otherPanel.setVisibility(View.VISIBLE);
 				break;
 		}
 	}
 
+	private void checkStatus(){
+		statusIp.setText(Save.getIP());
+		statusPort.setText(Save.getPort());
+		statusVideoURL.setText(Save.getVideoURL());
+		if(Save.getServiceStatus()){
+			statusService.setText("可用");
+		}else{
+			statusService.setText("禁用");
+		}
+		if(Save.getTestServerStatus()){
+			statusTestServer.setText("可用");
+		}else{
+			statusTestServer.setText("禁用");
+		}
+		if(Save.getReceiveStatus()){
+			statusReceive.setText("可用");
+		}else{
+			statusReceive.setText("禁用");
+		}
+		if(Save.getVideoStatus()){
+			statusVideo.setText("可用");
+		}else{
+			statusVideo.setText("禁用");
+		}
+
+		int flag=Save.get(Type.KEY_SPEED_TYPE,MyApplication.SPEED_TYPE);
+		String str="";
+		switch(flag){
+			case Type.FLAG_SPEED_LOW:
+				str="低档位";
+				break;
+			case Type.FLAG_SPEED_MIDDLE:
+				str="中档位";
+				break;
+			case Type.FLAG_SPEED_HIGH:
+				str="高档位";
+				break;
+			case Type.FLAG_SPEED_AUTO:
+				str="自由档位";
+				str+=" axialX:"+Save.get(Type.KEY_SPEED_AUTO_AXIAL_X,0);
+				str+=" axialY:"+Save.get(Type.KEY_SPEED_AUTO_AXIAL_Y,0);
+				str+=" obliqueX:"+Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_X,0);
+				str+=" obliqueY:"+Save.get(Type.KEY_SPEED_AUTO_OBLIQUE_Y,0);
+				break;
+		}
+		statusSpeedType.setText(str);
+	}
+	
 	private void update(int flag){
 		switch (flag){
 			case FLAG_SETTINTG_BASED:
@@ -227,6 +322,14 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 				}else{
 					Toast.makeText(contxt,"URL不能为空！",Toast.LENGTH_SHORT).show();
 				}
+				break;
+			case FLAG_SETTING_SPEED:
+				Save.put(Type.KEY_SPEED_AUTO_AXIAL_X,ax);
+				Save.put(Type.KEY_SPEED_AUTO_AXIAL_Y,ay);
+				Save.put(Type.KEY_SPEED_AUTO_OBLIQUE_X,ox);
+				Save.put(Type.KEY_SPEED_AUTO_OBLIQUE_Y,oy);
+				Save.put(Type.KEY_SPEED_TYPE,Type.FLAG_SPEED_AUTO);
+				Toast.makeText(contxt,"自由档位保存成功！",Toast.LENGTH_SHORT).show();
 				break;
 		}
 	}
@@ -265,6 +368,42 @@ public class SettingActivity extends BasedActivity implements View.OnClickListen
 				break;
 		}
 	}
+	
+	@Override
+	public void onProgressChanged(SeekBar p1, int p2, boolean p3)
+	{
+		// TODO: Implement this method
+		switch(p1.getId()){
+			case R.id.speedautopanelSeekBarAxialX:
+				ax=p2;
+				tvAxialX.setText(String.valueOf(ax));
+				break;
+			case R.id.speedautopanelSeekBarAxialY:
+				ay=p2;
+				tvAxialY.setText(String.valueOf(ay));
+				break;
+			case R.id.speedautopanelSeekBarObliqueX:
+				ox=p2;
+				tvObliqueX.setText(String.valueOf(ox));
+				break;
+			case R.id.speedautopanelSeekBarObliqueY:
+				oy=p2;
+				tvObliqueY.setText(String.valueOf(oy));
+				break;
+		}
+	}
 
+	@Override
+	public void onStartTrackingTouch(SeekBar p1)
+	{
+		// TODO: Implement this method
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar p1)
+	{
+		// TODO: Implement this method
+	}
+	
 	
 }

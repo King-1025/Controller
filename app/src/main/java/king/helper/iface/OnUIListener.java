@@ -11,4 +11,5 @@ public interface OnUIListener
 	void OnVoiceStatusChange(int selectId);
 	void OnLEDWordStatusChange(int selectId);
 	void OnVolumeStatusChange(int value);
+	void OnSpeedStatusChange(int type);
 }

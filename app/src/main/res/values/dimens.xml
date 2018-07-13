@@ -10,7 +10,7 @@
     <dimen name="control_center_panel_width">210dp</dimen>
     <dimen name="image_info_text_size">15sp</dimen>
     <dimen name="main_button_size">80dp</dimen>
-    <dimen name="main_line_size">25dp</dimen>
+    <dimen name="main_line_size">30dp</dimen>
     <dimen name="title_bar_text_size">15sp</dimen>
     <dimen name="setting_left_menu_width">120sp</dimen>
     <dimen name="splash_app_name_text_size">15sp</dimen>
@@ -23,6 +23,7 @@
     <dimen name="camera_direction_center_margin">10dp</dimen>
     <dimen name="volume_show_text_size">15sp</dimen>
     <dimen name="volume_seekbar_height">30dp</dimen>
+	
     <dimen name="walking_circularrod_size">135dp</dimen>
     <dimen name="walking_circularrod_margin_left">45dp</dimen>
     <dimen name="walking_circularrod_margin_bottom">50dp</dimen>

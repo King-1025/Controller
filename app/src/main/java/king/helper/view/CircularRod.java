@@ -7,6 +7,7 @@ import android.content.res.*;
 import king.helper.*;
 import android.graphics.*;
 import king.helper.iface.*;
+import king.helper.model.*;
 
 
 
@@ -46,6 +47,8 @@ public class CircularRod extends View {
 
     private int LINE_OFFSET=5;
 
+	private int lastDirection;
+	
     public CircularRod(Context context) {
         super(context);
         init(null, 0);
@@ -89,6 +92,8 @@ public class CircularRod extends View {
         paint=new Paint();
         paint.setColor(lineColor);
         paint.setStrokeWidth(lineWidth);
+		
+		lastDirection=CircularRodAction.DIRECTION_CENTER;
     }
 
     @Override
@@ -156,75 +161,86 @@ public class CircularRod extends View {
                     if (z <= d) {
                         innerCircleX = (int) event.getX();
                         innerCircleY = (int) event.getY();
-                        onTouch(w,z,d);
+                        locate(w,z,d);
                     } else {
                         double sinX = x / z;
                         innerCircleX = (int) (centerX + d * sinX);
                         innerCircleY = (int) (centerY + d * sinY);
-                        onTouch(w,d,d);
+                        locate(w,d,d);
                     }
                 }else{
-                    onTouch(-1,0,MAX_POLAR_DIAMETER);
+                    locate(-1,0,MAX_POLAR_DIAMETER);
+					Log.w(TAG,"z:"+z+" <= 0");
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 innerCircleX=centerX;
                 innerCircleY=centerY;
-                onTouch(-1,0,MAX_POLAR_DIAMETER);
+                locate(-1,0,MAX_POLAR_DIAMETER);
                 break;
         }
         invalidate();
         return true;
     }
 
-    private void onTouch(double polarAngle, double polarDiameter, double maxPolarDiameter){
+    private void locate(double polarAngle, double polarDiameter, double maxPolarDiameter){
+		
 		if(onCircularRodTouchListener!=null){
 			onCircularRodTouchListener.onCircularRodTouch(this,polarAngle,polarDiameter,maxPolarDiameter);
 		}
-      }
-	  
-	 /*
-	if(polarAngle<0){
-		//无方向
 		
-		//Log.w(TAG,"polarAngle is not in [0,360] !");
-	}else{
-		//逆时针方向
-		if((polarAngle>337.5&&polarAngle<=360)||(polarAngle>=0&&polarAngle<22.5)){
-			//右
-			
-		}else if(polarAngle>=22.5&&polarAngle<=67.5){
-           //右下
+		if(onCircularRodDirectionListener!=null){
+			int direction;
+			if(polarDiameter>innerCircleR){
+				//逆时针方向
+				if((polarAngle>337.5&&polarAngle<=360)||(polarAngle>=0&&polarAngle<22.5)){
+					//东
+					direction=CircularRodAction.DIRECTION_EAST;
 
-		}else if(polarAngle>67.5&&polarAngle<112.5){
-			//下
-			
-		}else if(polarAngle>=112.5&&polarAngle<=157.5){
-			//左下
-			
-		}else if(polarAngle>157.5&&polarAngle<202.5){
-			//左
-			
-		}else if(polarAngle>=202.5&&polarAngle<=247.5){
-			//左上
-			
-		}else if(polarAngle>247.5&&polarAngle<292.5){
-			//上
-			
-		}else if(polarAngle>=292.5&&polarAngle<=337.5){
-			//右上
-		
-		}else{
-			//无方向
-			walkingDirectionDescription="机身停止运动";
+				}else if(polarAngle>=22.5&&polarAngle<=67.5){
+					//东南
+					direction=CircularRodAction.DIRECTION_SOUTH_EAST;
 
-			dx=dy=0;
+				}else if(polarAngle>67.5&&polarAngle<112.5){
+					//南
+					direction=CircularRodAction.DIRECTION_SOUTH;
 
-			logDirection("无方向",polarAngle,polarDiameter,maxPolarDiameter);
+				}else if(polarAngle>=112.5&&polarAngle<=157.5){
+					//西南
+					direction=CircularRodAction.DIRECTION_SOUTH_WEST;
 
-			//Log.w(TAG,"polarAngle is not in [0,360] !");
+				}else if(polarAngle>157.5&&polarAngle<202.5){
+					//西
+					direction=CircularRodAction.DIRECTION_WEST;
+
+				}else if(polarAngle>=202.5&&polarAngle<=247.5){
+					//西北
+					direction=CircularRodAction.DIRECTION_NORTH_WEST;
+
+				}else if(polarAngle>247.5&&polarAngle<292.5){
+					//北
+					direction=CircularRodAction.DIRECTION_NORTH;
+
+				}else if(polarAngle>=292.5&&polarAngle<=337.5){
+					//东北
+					direction=CircularRodAction.DIRECTION_NORTH_EAST;
+
+				}else{
+					//中心/无方向
+					direction=CircularRodAction.DIRECTION_CENTER;
+
+				}   
+			}else{
+				//中心/偏移范围内
+				direction=CircularRodAction.DIRECTION_CENTER;
+			}
+			
+			if(direction!=lastDirection){
+				lastDirection=direction;
+				onCircularRodDirectionListener.onDirectionChange(this,new CircularRodAction(direction,polarDiameter,maxPolarDiameter));
+			}
 		}
-	}*/
-	
+	  
+	}
 }
 

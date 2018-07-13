@@ -4,7 +4,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
-	android:padding="5dp">
+	android:padding="8dp">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -15,6 +15,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="是否开启服务？"
 			android:textSize="@dimen/default_show_text_size"/>
 
@@ -32,7 +33,7 @@
 	</LinearLayout>
 
 	<View
-		android:layout_height="3dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -45,6 +46,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="是否启用测试服务器？"
+			android:textColor="@color/colorTextBase"
 			android:textSize="@dimen/default_show_text_size"/>
 
 		<View
@@ -61,7 +63,7 @@
 	</LinearLayout>
 
 	<View
-		android:layout_height="3dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -74,6 +76,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="是否接受数据？(需要启用测试服务器)"
+			android:textColor="@color/colorTextBase"
 			android:textSize="@dimen/default_show_text_size"/>
 
 		<View
@@ -90,7 +93,7 @@
 	</LinearLayout>
 
 	<View
-		android:layout_height="3dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -102,6 +105,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="是否预览视频？"
 			android:textSize="@dimen/default_show_text_size"/>
 
@@ -117,10 +121,6 @@
 			android:track="@drawable/track"/>
 
 	</LinearLayout>
-
-	<View
-		android:layout_height="3dp"
-		android:layout_width="match_parent"/>
 
 </LinearLayout>
 

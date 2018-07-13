@@ -25,6 +25,7 @@
 				android:text="@string/video_title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:textColor="@color/colorTextBase"
 				android:gravity="center"/>
 
 			<View
@@ -41,6 +42,7 @@
 					android:id="@+id/video_url_label"
 					android:layout_width="35dp"
 					android:layout_height="match_parent"
+					android:textColor="@color/colorTextBase"
 					android:gravity="center"/>
 
 				<EditText
@@ -52,6 +54,7 @@
 					android:layout_width="match_parent"
 					android:layout_marginBottom="10dp"
 					android:layout_height="match_parent"
+					android:textColor="@color/colorTextBase"
 					android:singleLine="true"/>
 
 			</RelativeLayout>

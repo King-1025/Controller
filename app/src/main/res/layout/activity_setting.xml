@@ -139,6 +139,12 @@
 					android:layout_height="match_parent"
 					android:layout_marginBottom="35dp"/>
 				<include
+					android:id="@+id/speed_auto_panel"
+					layout="@layout/speed_auto_panel"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="35dp"/>
+				<include
 					android:id="@+id/other_setting_panel"
 					layout="@layout/other_setting_panel"
 					android:layout_width="match_parent"

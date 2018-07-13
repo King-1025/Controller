@@ -31,7 +31,9 @@ public class MyApplication extends Application
 	public final static int PICTURE_SAVE_TYPE= Type.FLAG_SCREENSHOT_SAVE_AS_PNG;
 
 	public final static int VIDEO_QUALITY=Type.FLAG_VIDEO_QUALITY_FLUENT;
-
+	
+	public final static int SPEED_TYPE=Type.FLAG_SPEED_LOW;
+	
 	public static String PICTURE_PATH;
 
 	public static Context APP_CONTEXT;

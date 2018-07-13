@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="10dp"
+		android:layout_centerInParent="true">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:padding="5dp">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textColor="@color/colorTextBase"
+					android:layout_width="wrap_content"
+					android:text="轴向X:"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="12"
+					android:textColor="@color/colorTextBase"
+					android:id="@+id/speedautopanelTextViewAxialX"/>
+
+			</LinearLayout>
+
+			<SeekBar
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/speedautopanelSeekBarAxialX"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="10dp"
+			android:layout_width="match_parent"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:padding="5dp">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textColor="@color/colorTextBase"
+					android:text="轴向Y:"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="12"
+					android:textColor="@color/colorTextBase"
+					android:id="@+id/speedautopanelTextViewAxialY"/>
+
+			</LinearLayout>
+
+			<SeekBar
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/speedautopanelSeekBarAxialY"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="10dp"
+			android:layout_width="match_parent"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:padding="5dp">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textColor="@color/colorTextBase"
+					android:text="斜向X:"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="12"
+					android:textColor="@color/colorTextBase"
+					android:id="@+id/speedautopanelTextViewObliqueX"/>
+
+			</LinearLayout>
+
+			<SeekBar
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/speedautopanelSeekBarObliqueX"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="10dp"
+			android:layout_width="match_parent"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:padding="5dp">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textColor="@color/colorTextBase"
+					android:text="斜向Y:"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="12"
+					android:textColor="@color/colorTextBase"
+					android:id="@+id/speedautopanelTextViewObliqueY"/>
+
+			</LinearLayout>
+
+			<SeekBar
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/speedautopanelSeekBarObliqueY"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="选择自由档位时生效！"
+		android:textColor="@color/colorTextBase"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="25dp"/>
+
+</RelativeLayout>
+

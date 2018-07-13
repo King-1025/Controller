@@ -6,7 +6,7 @@
     <color name="colorWhite">#fbfcfb</color>
     <color name="colorTextBase">#0d0d0d</color>
     <color name="colorLinePrimary">#1abf95</color>
-    <color name="colorLineBlack">#e6a7a6a6</color>
+    <color name="colorLineBlack">#e6000000</color>
     <color name="colorCircleButtonText">#f6f7ff</color>
     <color name="colorShowText0">#df4d3a</color>
     <color name="colorShowText1">#2ddaaf</color>

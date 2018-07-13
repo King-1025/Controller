@@ -40,7 +40,8 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private Button sound; //音量
 	private SeekBar volumeSeekBar; //音量拖动条
 	private TextView volumeShow; //音量显示条
-
+    private Button speedType; //档位
+	
 	//云台控制
 	private ImageButton directionChange;
 	private ImageButton top;
@@ -77,6 +78,9 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private int dialogFlag;
 	private int voiceSelectId;
 	private int LEDWordSelectId;
+	private int speedTypeSelectId;
+	
+	private int speedFlag;
 	
 	private int volume=InstructionMaker.DEFAULT_VALUME_VALUE;
 	
@@ -92,6 +96,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private final static int DIALOG_VOICE_SELECT=0xD0;
 	private final static int DIALOG_LED_WORD_SELECT=0xD1;
 	private final static int DIALOG_VOLUME_RESET=0xD2;
+	private final static int DIALOG_SPEED_TYPE_SELECT=0xD3;
 	
 	private CommunicationService communicationService;
 	private boolean isAccessSend=false;
@@ -224,7 +229,11 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		LEDWord=(Button) this.findViewById(R.id.bottomcontrolButtonWord);
 		light=(Button) this.findViewById(R.id.lightSun);
 		sound=(Button) this.findViewById(R.id.bottomcontrolButtonVolume);
-
+		speedType=(Button) this.findViewById(R.id.bottomcontrolButtonSpeedType);
+		
+		speedFlag=Save.get(Type.KEY_SPEED_TYPE,MyApplication.SPEED_TYPE);
+		updateSpeedTypeLable();
+		
 		sound.setText(String.valueOf(volume));
 		
 		cameraPanel=(FrameLayout) this.findViewById(R.id.activitycontrolFrameLayout1);
@@ -253,13 +262,15 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	}
 
 	private void bindAllListener(){
-		circularRod.setOnCircularRodTouchListener(instructionMaker);
+		//circularRod.setOnCircularRodTouchListener(instructionMaker);
+		circularRod.setOnCircularRodDirectionListener(instructionMaker);
 		
 		alarm.setOnClickListener(this);
 		light.setOnClickListener(this);
 		voice.setOnClickListener(this);
 		LEDWord.setOnClickListener(this);
 		sound.setOnClickListener(this);
+		speedType.setOnClickListener(this);
 
 	    top.setOnTouchListener(instructionMaker);
 		bottom.setOnTouchListener(instructionMaker);
@@ -372,6 +383,10 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 				dialogFlag=DIALOG_VOLUME_RESET;
 				show();
 				break;
+			case R.id.bottomcontrolButtonSpeedType:
+				dialogFlag=DIALOG_SPEED_TYPE_SELECT;
+				show();
+				break;
 		}
 	}
 	private void bind(Class<?> service){
@@ -381,7 +396,6 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 				Intent intent=new Intent();
 				intent.setClass(this,service);
 				bindService(intent,serviceConnection,BIND_AUTO_CREATE);
-				int x=1;
 			}
 		}
 	}
@@ -482,7 +496,13 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 					});
 				builder.setView(view);
 				break;
+			case DIALOG_SPEED_TYPE_SELECT:
+				title="调节档位";
+				viewId=R.array.speedType;
+				selectId=speedTypeSelectId;
+				break;
 		}
+		
 		builder.setTitle(title);
 		
 		if(viewId!=-1){
@@ -500,7 +520,10 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 								}
 								break;
 							case DIALOG_LED_WORD_SELECT:
-									LEDWordSelectId=p2;
+								LEDWordSelectId=p2;
+								break;
+							case DIALOG_SPEED_TYPE_SELECT:
+								speedTypeSelectId=p2;
 								break;
 						}
 					}
@@ -528,6 +551,11 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 								showInfo1.setText("调节音量:"+ volume);
 								onUIListener.OnVolumeStatusChange(volume);
 								break;
+							case DIALOG_SPEED_TYPE_SELECT:
+								updateSpeedFLAG();
+								updateSpeedTypeLable();
+								onUIListener.OnSpeedStatusChange(speedFlag);
+								break;
 						}
 					}
 				}
@@ -554,6 +582,44 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 		}else{
 			LEDWord.setText(LEDWordSelectId+"");
 			showInfo1.setText("选择字幕"+LEDWordSelectId);
+		}
+	}
+	
+	private void updateSpeedFLAG(){
+		if(speedTypeSelectId==0){
+			speedFlag=Type.FLAG_SPEED_LOW;
+			showInfo1.setText("选择低档位");
+		}else if(speedTypeSelectId==1){
+			speedFlag=Type.FLAG_SPEED_MIDDLE;
+			showInfo1.setText("选择中档位");
+		}else if(speedTypeSelectId==2){
+			speedFlag=Type.FLAG_SPEED_HIGH;
+			showInfo1.setText("选择高档位");
+		}else if(speedTypeSelectId==3){
+			speedFlag=Type.FLAG_SPEED_AUTO;
+			showInfo1.setText("选择自由档位");
+		}
+		Save.put(Type.KEY_SPEED_TYPE,speedFlag);
+	}
+	
+	private void updateSpeedTypeLable(){
+		switch(speedFlag){
+			case Type.FLAG_SPEED_LOW:
+				speedType.setText("低");
+				speedTypeSelectId=0;
+				break;
+			case Type.FLAG_SPEED_MIDDLE:
+				speedType.setText("中");
+				speedTypeSelectId=1;
+				break;
+			case Type.FLAG_SPEED_HIGH:
+				speedType.setText("高");
+				speedTypeSelectId=2;
+				break;
+			case Type.FLAG_SPEED_AUTO:
+				speedType.setText("自");
+				speedTypeSelectId=3;
+				break;
 		}
 	}
 }

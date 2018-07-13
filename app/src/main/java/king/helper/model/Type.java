@@ -52,4 +52,16 @@ public class Type
 	public final static String KEY_STATUS_TEST_SERVER="key_test_server_status";
 	public final static String KEY_STATUS_RECEIVE="key_receive_status";
 	public final static String KEY_STATUS_VIDEO="key_video_status";
+	
+	public final static String KEY_SPEED_TYPE="key_speed_type";
+	public final static String KEY_SPEED_AUTO_AXIAL_X="key_speed_auto_axial_x";
+	public final static String KEY_SPEED_AUTO_AXIAL_Y="key_speed_auto_axial_y";
+	public final static String KEY_SPEED_AUTO_OBLIQUE_X="key_speed_auto_oblique_x";
+	public final static String KEY_SPEED_AUTO_OBLIQUE_Y="key_speed_auto_oblique_y";
+	
+	                   /*档位*/
+    public final static int FLAG_SPEED_LOW=0x400;
+	public final static int FLAG_SPEED_MIDDLE=0x401;
+	public final static int FLAG_SPEED_HIGH=0x402;
+	public final static int FLAG_SPEED_AUTO=0x403;
 }

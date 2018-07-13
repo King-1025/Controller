@@ -4,7 +4,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
-	android:padding="5dp">
+	android:padding="8dp">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -15,19 +15,21 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="@string/ip"
+			android:textColor="@color/colorTextBase"
 			android:textSize="@dimen/default_show_text_size"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:textSize="@dimen/default_show_text_size"
 			android:id="@+id/statussettingpanelIP"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -38,18 +40,20 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/port"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelPort"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -60,18 +64,20 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/url_src"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelURL"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -82,18 +88,20 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/service_status"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelService"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -104,18 +112,20 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/test_server_status"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelTestServer"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -126,18 +136,20 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/receive_status"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelReceive"/>
 
 	</LinearLayout>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="5dp"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
@@ -148,13 +160,39 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
 			android:text="@string/video_status"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="Text"
+			android:textColor="@color/colorTextBase"
 			android:id="@+id/statussettingpanelVideo"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="5dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textColor="@color/colorTextBase"
+			android:text="@string/speed_type_status"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Text"
+			android:textColor="@color/colorTextBase"
+			android:id="@+id/statussettingpanelSpeedType"/>
 
 	</LinearLayout>
 

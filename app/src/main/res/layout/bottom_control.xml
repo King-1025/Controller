@@ -6,186 +6,38 @@
 	android:gravity="center"
 	android:orientation="horizontal">
 
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical">
 
-			<Button
-				android:layout_width="@dimen/circle_size"
-				android:layout_height="@dimen/circle_size"
-				android:background="@drawable/circle_button_seletor"
-				android:text="@string/nothing"
-				android:textColor="@color/colorCircleButtonText"
-				android:textSize="@dimen/circle_text_size"
-				android:id="@+id/bottomcontrolButtonVoice"/>
-
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_marginTop="1dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-				android:background="@color/colorPrimaryDark"/>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text="@string/voice"
-				android:textColor="@color/colorTextBase"
-				android:textSize="@dimen/circle_text_size"/>
-
-		</LinearLayout>
+		<Button
+			android:layout_width="@dimen/circle_size"
+			android:layout_height="@dimen/circle_size"
+			android:background="@drawable/circle_button_seletor"
+			android:text="@string/nothing"
+			android:textColor="@color/colorCircleButtonText"
+			android:textSize="@dimen/circle_text_size"
+			android:id="@+id/bottomcontrolButtonVoice"/>
 
 		<View
-			android:layout_width="@dimen/bottom_line_size"
-			android:layout_height="match_parent"/>
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="1dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:background="@color/colorPrimaryDark"/>
 
-		<LinearLayout
-			android:layout_width="wrap_content"
+		<TextView
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
-			android:orientation="vertical">
+			android:text="@string/voice"
+			android:textColor="@color/colorTextBase"
+			android:textSize="@dimen/circle_text_size"/>
 
-			<Button
-				android:id="@+id/lightAlarm"
-				android:layout_width="@dimen/circle_size"
-				android:layout_height="@dimen/circle_size"
-				android:textColor="@color/colorCircleButtonText"
-				android:background="@drawable/circle_button_seletor"
-				android:textSize="@dimen/circle_text_size"
-				android:text="@string/open"/>
-
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-				android:layout_marginTop="1dp"
-				android:background="@color/colorPrimaryDark"/>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text="@string/alarm_light"
-				android:textColor="@color/colorTextBase"
-				android:textSize="@dimen/circle_text_size"/>
-
-		</LinearLayout>
-
-		<View
-			android:layout_width="@dimen/bottom_line_size"
-			android:layout_height="match_parent"/>
-
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<Button
-				android:layout_width="@dimen/circle_size"
-				android:layout_height="@dimen/circle_size"
-				android:background="@drawable/circle_button_seletor"
-				android:text="@string/volume_default_value"
-				android:textSize="@dimen/circle_text_size"
-				android:textColor="@color/colorCircleButtonText"
-				android:id="@+id/bottomcontrolButtonVolume"/>
-
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_marginTop="1dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-				android:background="@color/colorPrimaryDark"/>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text="@string/volume"
-				android:textColor="@color/colorTextBase"
-				android:textSize="@dimen/circle_text_size"/>
-
-		</LinearLayout>
-
-		<View
-			android:layout_width="@dimen/bottom_line_size"
-			android:layout_height="match_parent"/>
-
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<Button
-				android:layout_width="@dimen/circle_size"
-				android:layout_height="@dimen/circle_size"
-				android:background="@drawable/circle_button_seletor"
-				android:text="@string/nothing"
-				android:textSize="@dimen/circle_text_size"
-				android:textColor="@color/colorCircleButtonText"
-				android:id="@+id/bottomcontrolButtonWord"/>
-
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_marginTop="1dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-				android:background="@color/colorPrimaryDark"/>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text="@string/word"
-				android:textColor="@color/colorTextBase"
-				android:textSize="@dimen/circle_text_size"/>
-
-		</LinearLayout>
-
-		<View
-			android:layout_width="@dimen/bottom_line_size"
-			android:layout_height="match_parent"/>
-
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<Button
-				android:id="@+id/lightSun"
-				android:layout_width="@dimen/circle_size"
-				android:layout_height="@dimen/circle_size"
-				android:background="@drawable/circle_button_seletor"
-				android:textSize="@dimen/circle_text_size"
-				android:textColor="@color/colorCircleButtonText"
-				android:text="@string/open"/>
-
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_marginTop="1dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-				android:background="@color/colorPrimaryDark"/>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center"
-				android:text="@string/light"
-				android:textColor="@color/colorTextBase"
-				android:textSize="@dimen/circle_text_size"/>
-
-		</LinearLayout>
+	</LinearLayout>
 
 	<View
 		android:layout_width="@dimen/bottom_line_size"
@@ -198,13 +50,161 @@
 		android:orientation="vertical">
 
 		<Button
-			android:id="@+id/speedType"
+			android:id="@+id/lightAlarm"
+			android:layout_width="@dimen/circle_size"
+			android:layout_height="@dimen/circle_size"
+			android:textColor="@color/colorCircleButtonText"
+			android:background="@drawable/circle_button_seletor"
+			android:textSize="@dimen/circle_text_size"
+			android:text="@string/open"/>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginTop="1dp"
+			android:background="@color/colorPrimaryDark"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/alarm_light"
+			android:textColor="@color/colorTextBase"
+			android:textSize="@dimen/circle_text_size"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="@dimen/bottom_line_size"
+		android:layout_height="match_parent"/>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<Button
+			android:layout_width="@dimen/circle_size"
+			android:layout_height="@dimen/circle_size"
+			android:background="@drawable/circle_button_seletor"
+			android:text="@string/volume_default_value"
+			android:textSize="@dimen/circle_text_size"
+			android:textColor="@color/colorCircleButtonText"
+			android:id="@+id/bottomcontrolButtonVolume"/>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="1dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:background="@color/colorPrimaryDark"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/volume"
+			android:textColor="@color/colorTextBase"
+			android:textSize="@dimen/circle_text_size"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="@dimen/bottom_line_size"
+		android:layout_height="match_parent"/>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<Button
+			android:layout_width="@dimen/circle_size"
+			android:layout_height="@dimen/circle_size"
+			android:background="@drawable/circle_button_seletor"
+			android:text="@string/nothing"
+			android:textSize="@dimen/circle_text_size"
+			android:textColor="@color/colorCircleButtonText"
+			android:id="@+id/bottomcontrolButtonWord"/>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="1dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:background="@color/colorPrimaryDark"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/word"
+			android:textColor="@color/colorTextBase"
+			android:textSize="@dimen/circle_text_size"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="@dimen/bottom_line_size"
+		android:layout_height="match_parent"/>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<Button
+			android:id="@+id/lightSun"
 			android:layout_width="@dimen/circle_size"
 			android:layout_height="@dimen/circle_size"
 			android:background="@drawable/circle_button_seletor"
 			android:textSize="@dimen/circle_text_size"
 			android:textColor="@color/colorCircleButtonText"
-			android:text="@string/middle"/>
+			android:text="@string/open"/>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="1dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:background="@color/colorPrimaryDark"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/light"
+			android:textColor="@color/colorTextBase"
+			android:textSize="@dimen/circle_text_size"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="@dimen/bottom_line_size"
+		android:layout_height="match_parent"/>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<Button
+			android:layout_width="@dimen/circle_size"
+			android:layout_height="@dimen/circle_size"
+			android:background="@drawable/circle_button_seletor"
+			android:textSize="@dimen/circle_text_size"
+			android:textColor="@color/colorCircleButtonText"
+			android:text="@string/middle"
+			android:id="@+id/bottomcontrolButtonSpeedType"/>
 
 		<View
 			android:layout_width="match_parent"
@@ -223,6 +223,6 @@
 			android:textSize="@dimen/circle_text_size"/>
 
 	</LinearLayout>
-		
+
 </LinearLayout>
 
