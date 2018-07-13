@@ -29,7 +29,7 @@ public class Sender
 	
 	private final static int LINE_SIZE=20;
 	
-	private long interval=50;
+	private long interval=100;
 
 	private boolean isPause=false;
 

@@ -133,6 +133,8 @@ public class CommunicationService extends BasedService implements OnConnectionLi
 
 	public void pause(){
 		receiver.stop();
+		//暂停时给机身发送一条停止命令
+		directiy(new WalkingInstruction(Type.INSTRUCTION_WALKING,"机身恢复正常状态"));
 		sender.stop();
 		if(Save.getTestServerStatus()){
 			sm.stop();

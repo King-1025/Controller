@@ -58,6 +58,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 	private TextView power; //电量
 	private TextView showInfo0; //信息显示0
     private TextView showInfo1; //信息显示1
+	private Button screenshot;
 	private Button visibility; //显示和隐藏
 	private Button exit; //离开
 
@@ -257,7 +258,8 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 
         showInfo0=(TextView) this.findViewById(R.id.activitycontrolTextViewShow0);
         showInfo1=(TextView) this.findViewById(R.id.activitycontrolTextViewShow1);
-        visibility=(Button) this.findViewById(R.id.activitycontrolButtonVisibility);
+		screenshot=(Button) this.findViewById(R.id.activitycontrolButtonScreenshot);
+		visibility=(Button) this.findViewById(R.id.activitycontrolButtonVisibility);
         exit=(Button) this.findViewById(R.id.activitycontrolButtonExit);
 	}
 
@@ -283,6 +285,7 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 
 		directionChange.setOnClickListener(this);
 		controlChange.setOnClickListener(this);
+		screenshot.setOnClickListener(this);
 		visibility.setOnClickListener(this);
 		exit.setOnClickListener(this);
 
@@ -336,6 +339,11 @@ public class ControlActivity extends BasedActivity implements OnClickListener
 			case R.id.cameraDirectionSwitch:
 			case R.id.cameracontrolButtonSwitch:
 				switchCameraPanel();
+				break;
+			case R.id.activitycontrolButtonScreenshot:
+				if(videoManager!=null){
+					videoManager.screenshot();
+				}
 				break;
 			case R.id.activitycontrolButtonVisibility:
 				changeVisible(isHide);

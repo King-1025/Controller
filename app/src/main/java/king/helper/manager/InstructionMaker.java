@@ -82,7 +82,7 @@ public class InstructionMaker implements OnUIListener,OnTouchListener,OnCircular
 			case CircularRodAction.DIRECTION_SOUTH_EAST:
 				walkingDirectionDescription="向右后方运动";
 				
-				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueX());
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueX());
 				
 				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueY());
 				
@@ -98,7 +98,7 @@ public class InstructionMaker implements OnUIListener,OnTouchListener,OnCircular
 			case CircularRodAction.DIRECTION_SOUTH_WEST:
 				walkingDirectionDescription="向左后方运动";
 				
-				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueX());
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE+5);
 
 				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueY());
 				
@@ -114,7 +114,7 @@ public class InstructionMaker implements OnUIListener,OnTouchListener,OnCircular
 			case CircularRodAction.DIRECTION_NORTH_WEST:
 				walkingDirectionDescription="向左前方运动";
 				
-				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-speed.getObliqueX());
+				leftAndRightCommand=(byte)(WALKING_DIRECTION_MIDDLE-5);
 
 				upAndDownCommand=(byte)(WALKING_DIRECTION_MIDDLE+speed.getObliqueY());
 				
@@ -157,22 +157,22 @@ public class InstructionMaker implements OnUIListener,OnTouchListener,OnCircular
 		}
 		switch(type){
 			case Type.FLAG_SPEED_LOW:
-				speed.setAxialX(39);
-				speed.setAxialY(39);
-				speed.setObliqueX(25);
-				speed.setObliqueY(20);
+				speed.setAxialX(80);
+				speed.setAxialY(40);
+				speed.setObliqueX(38);
+				speed.setObliqueY(38);
 				break;
 			case Type.FLAG_SPEED_MIDDLE:
-				speed.setAxialX(78);
-				speed.setAxialY(78);
-				speed.setObliqueX(50);
-				speed.setObliqueY(40);
+				speed.setAxialX(100);
+				speed.setAxialY(60);
+				speed.setObliqueX(48);
+				speed.setObliqueY(48);
 				break;
 			case Type.FLAG_SPEED_HIGH:
-				speed.setAxialX(117);
-				speed.setAxialY(117);
-				speed.setObliqueX(100);
-				speed.setObliqueY(80);
+				speed.setAxialX(120);
+				speed.setAxialY(80);
+				speed.setObliqueX(58);
+				speed.setObliqueY(58);
 				break;
 			case Type.FLAG_SPEED_AUTO:
 				speed.setAxialX(Save.get(Type.KEY_SPEED_AUTO_AXIAL_X,0));

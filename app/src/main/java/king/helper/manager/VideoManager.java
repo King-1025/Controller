@@ -78,4 +78,10 @@ public class VideoManager implements SurfaceHolder.Callback{
             videoPlyer.destroy();
         }
     }
+	
+	public void screenshot(){
+		if(videoPlyer!=null){
+			videoPlyer.screenshot();
+		}
+	}
 }
